@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CodeHub</title>
+  <style>
+    /* ...existing code from commits.html... */
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">CodeHub</div>
+    <div class="user">john.doe@example.com</div>
+  </div>
+  
+  <!-- Sidebar -->
+<!-- Sidebar -->
+<div class="sidebar">
+    <a href="commits.html">Commits</a>
+    <a href="branches.html">Branches</a>
+    <a href="graph.html" class="active">Graph</a>
+    <a href="files.html">Files</a>
+  </div>
+  
+  
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="branch-header">
+      Files
+    </div>
+    
+    <div class="file-list">
+      <div class="loading">Loading files...</div>
+    </div>
+  </div>
+
+  <script>
+    // Simulate loading data
+    setTimeout(() => {
+      const loadingElement = document.querySelector('.loading');
+      const fileList = document.querySelector('.file-list');
+
+      if (loadingElement) {
+        loadingElement.style.display = 'none';
+      }
+
+      const files = ['index.html', 'style.css']; // Example file list
+      files.forEach(file => {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+        fileItem.textContent = file;
+        fileList.appendChild(fileItem);
+      });
+    }, 1000);
+  </script>
+</body>
+</html>
