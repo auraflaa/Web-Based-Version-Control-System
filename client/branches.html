@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CodeHub</title>
+  <style>
+    /* Complete CSS for the exact visual match */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+      color: #24292e;
+    }
+    
+    .navbar {
+      background-color: #24292e;
+      color: white;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .logo {
+      font-weight: 600;
+      font-size: 18px;
+    }
+    
+    .user {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+    
+    .sidebar {
+      width: 220px;
+      background-color: #24292e;
+      padding-top: 60px;
+      height: 100%;
+      position: fixed;
+    }
+    
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 8px 16px;
+      border-left: 3px solid transparent;
+    }
+    
+    .sidebar a.active {
+      border-left: 3px solid #f9826c;
+      font-weight: 600;
+    }
+    
+    .main-content {
+      margin-left: 220px;
+      margin-top: 60px;
+      padding: 24px;
+      width: calc(100% - 220px);
+    }
+    
+    .branch-header {
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .branch-list {
+      background: white;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+    }
+    
+    .branch-item {
+      padding: 16px;
+      border-bottom: 1px solid #e1e4e8;
+    }
+    
+    .branch-item:last-child {
+      border-bottom: none;
+    }
+    
+    .loading {
+      padding: 24px;
+      text-align: center;
+      color: #586069;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">CodeHub</div>
+    <div class="user">john.doe@example.com</div>
+  </div>
+  
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="#">Commits</a>
+    <a href="#" class="active">Branches</a>
+    <a href="#">Graph</a>
+    <a href="#">Files</a>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="branch-header">
+      Branches
+    </div>
+    
+    <div class="branch-list">
+        <div class="loading" id="branch-loading">Loading branches...</div>
+        <ul id="branch-list"></ul>
+      </div>
+      
+ 

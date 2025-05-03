@@ -1,0 +1,179 @@
+Web-Based-Version-Control-System
+
+Frontend Status Report
+
+Filename: commits.html
+
+What’s Done:
+
+Displays commit history with message, author, and timestamp.
+
+Mock data for testing.
+
+What’s Left to Do:
+
+Integrate with live database for commits.
+
+
+
+Filename: branches.html
+
+What’s Done:
+
+Displays list of branches and active branch.
+
+What’s Left to Do:
+
+Connect to live database for real branch data.
+
+Add more branch details and live updates.
+
+Filename: files.html
+
+What’s Done:
+
+Basic functionality is provided
+
+What’s Left to Do:
+
+Integrate with live file storage.
+
+Implement real-time file updates and previews.
+
+There is an issue as it not reflecting properly even in the frontend..treid sorting it with GH copilot also still not working
+
+Filename: graph.html
+
+
+
+What’s Left to Do:
+
+Replace placeholder with real-time graph data.
+
+Implement interactive graph visualization(basic)
+
+Same issue as files.html
+
+
+
+Server(Backend) Status Report
+
+Filename: app.py
+
+    
+
+What’s Done:
+
+Flask app has been initialized with basic configurations.
+
+Database setup has been configured with SQLAlchemy for MySQL.
+
+Environment variables (.env) have been loaded for sensitive information like DB credentials and repository path.
+
+Basic routes setup (GET /users, POST /users, POST /commit, POST /merge, POST /branch).
+
+What’s Left to Do:
+
+Integration with the database and frontend
+
+CRUD OPERATIONS OVERALL
+
+
+
+
+
+
+
+Filename: configs.py
+
+What is Done:
+
+Configures dynamic database URI using environment variables (DB_USER, DB_PASSWORD, etc.).
+
+What is Left:
+
+No changes needed unless more configuration settings are required for future features (e.g., caching, session management).
+
+
+
+
+
+FILENAME:MODELS.PY
+
+What is Done:
+
+Models for User and Commit defined with SQLAlchemy.
+
+The User model has basic fields (id, name, email).
+
+The Commit model includes fields like hash, message, timestamp.
+
+What is Left:
+
+Integration with frontend and db
+
+Add to_dict() method for User model
+
+
+
+FILENAME:ROUTES.PY
+
+Defined API routes for handling users and commit data:
+
+/users: List users and add a new user (GET and POST).
+
+/commit: Handles new commits and stores commit details in the database.
+
+/merge: API to merge branches using gitpython.
+
+/branch: API to create new Git branches.
+
+What is Left:
+
+Add pagination to the /users and /commit endpoints to handle large data sets efficiently.
+
+Add real-time updates for commits and branches to reflect changes instantly.
+
+Add better error handling and validation for user inputs (e.g., email format validation).
+
+Implement versioning for APIs to maintain backward compatibility.
+
+
+
+FILENAME:VCS.PY
+
+What is Done:
+
+Defines a simple in-memory version control system with commit, branch, and merge functionalities.
+
+Basic commit management is handled with files stored as a dictionary (files).
+
+Test was successfully run using pytest for it.
+
+What is Left:
+
+Integrate the in-memory VCS with the real database to persist commit and branch details.
+
+Implement real-time syncing between the in-memory VCS and the actual Git repository for live updates.
+
+
+
+
+
+DATABASE STATUS REPORT:
+
+WHAT IS LEFT:
+
+For you to store on your local machine and change the .env file accordingly
+
+Integration with front end and backend
+
+
+
+OVERALL:
+
+could not achieve integration and live updates.Thus files need changes accordingly. 
+
+files.html and graph.html from frontend are giving unexpected error that could be resolve even with GH Copilot
+
+API or not and overall OPERATIONS to be performed with backend....
