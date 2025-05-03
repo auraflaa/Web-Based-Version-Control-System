@@ -174,6 +174,6 @@ OVERALL:
 
 could not achieve integration and live updates.Thus files need changes accordingly. 
 
-files.html and graph.html from frontend are giving unexpected error that could be resolve even with GH Copilot
+files.html and graph.html from frontend are giving unexpected error that could not be resolve even with GH Copilot
 
 API or not and overall OPERATIONS to be performed with backend....
