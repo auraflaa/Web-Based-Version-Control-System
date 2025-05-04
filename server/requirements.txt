@@ -3,6 +3,7 @@ click==8.1.7
 Flask==3.0.3
 flask-mysql-connector==1.1.0
 Flask-SQLAlchemy==3.1.1
+Flask-CORS==4.0.0
 greenlet==3.2.1
 itsdangerous==2.2.0
 Jinja2==3.1.4
@@ -10,3 +11,5 @@ MarkupSafe==2.1.5
 mysql-connector-python==9.3.0
 python-dotenv
 Werkzeug==3.0.4
+pymysql
+cryptography

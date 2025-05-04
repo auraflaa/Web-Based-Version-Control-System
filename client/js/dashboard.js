@@ -22,6 +22,39 @@ async function apiPost(url, data) {
     return res.json();
 }
 
+// Check if user is logged in (modular, can be used in other pages)
+window.isUserLoggedIn = function() {
+    return !!localStorage.getItem('userId');
+};
+
+// Login form handler (only runs if login form is present)
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('loginForm');
+    const errorDiv = document.getElementById('loginError');
+    if (!form) return;
+    form.onsubmit = async function(e) {
+        e.preventDefault();
+        errorDiv.textContent = '';
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        if (!username || !password) {
+            errorDiv.textContent = 'Please enter both username and password.';
+            return;
+        }
+        try {
+            const res = await apiPost('/api/login', { username, password });
+            if (res.success) {
+                window.location.href = 'repos.html';
+            } else {
+                errorDiv.textContent = res.error || 'Invalid credentials.';
+            }
+        } catch (err) {
+            console.error('Login error:', err);
+            errorDiv.textContent = err.message || 'Server error. Please try again.';
+        }
+    };
+});
+
 // 1. Repository Status Panel
 async function loadRepoStatus() {
     const statusDiv = document.getElementById('statusDetails');

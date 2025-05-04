@@ -28,6 +28,30 @@
             transition: background 0.2s;
         }
         .repo-link:hover { background: #00ff00; color: #181818; }
+        .create-repo {
+            margin: 2em 0;
+            display: flex;
+            gap: 1em;
+        }
+        .create-repo input {
+            flex: 1;
+            padding: 0.7em;
+            border: none;
+            border-radius: 4px;
+            background: #222;
+            color: #e0e0e0;
+            font-size: 1em;
+        }
+        .create-repo button {
+            padding: 0.7em 1.5em;
+            background: #00ff00;
+            color: #181818;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .create-repo button:hover { background: #00cc00; }
         .logout-btn {
             display: block;
             margin: 2em auto 0 auto;
@@ -45,6 +69,10 @@
 <body>
     <div class="repos-container">
         <h2>Your Repositories</h2>
+        <div class="create-repo">
+            <input type="text" id="newRepoName" placeholder="New repository name" />
+            <button onclick="createRepo()">Create Repository</button>
+        </div>
         <ul id="repoList">Loading...</ul>
         <button class="logout-btn" onclick="logout()">Logout</button>
     </div>
@@ -55,20 +83,42 @@
             repoList.innerHTML = '<li>Loading...</li>';
             try {
                 const res = await apiGet('/api/repos');
-                if (!res.length) {
+                if (!res || !res.length) {
                     repoList.innerHTML = '<li>No repositories found.</li>';
                     return;
                 }
-                repoList.innerHTML = res.map(r => `<li><a class='repo-link' href="repo.html?repo_id=${encodeURIComponent(r.id)}">${r.name}</a></li>`).join('');
+                repoList.innerHTML = res.map(r => 
+                    `<li><a class='repo-link' href="repo.html?repo_id=${encodeURIComponent(r.id)}">${r.name}</a></li>`
+                ).join('');
             } catch (e) {
+                console.error('Error loading repos:', e);
                 repoList.innerHTML = '<li>Failed to load repositories.</li>';
             }
         }
+
+        async function createRepo() {
+            const nameInput = document.getElementById('newRepoName');
+            const name = nameInput.value.trim();
+            if (!name) {
+                alert('Please enter a repository name');
+                return;
+            }
+            try {
+                await apiPost('/api/repos', { name, user_id: currentUserId });
+                nameInput.value = '';
+                loadRepos(); // Refresh the list
+            } catch (e) {
+                console.error('Error creating repo:', e);
+                alert('Failed to create repository. Please try again.');
+            }
+        }
+
         function logout() {
-            // Optionally call /api/logout if implemented
+            currentUserId = null;
             window.location.href = 'dashboard.html';
         }
-        loadRepos();
+        
+        loadRepos(); // Load repositories when page loads
     </script>
 </body>
 </html>

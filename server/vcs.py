@@ -1,5 +1,8 @@
 import uuid
 import time
+import os
+import shutil
+from datetime import datetime
 
 class Commit:
     def __init__(self, message, files, parent=None):
@@ -17,6 +20,68 @@ class Commit:
             "parent": self.parent.id if self.parent else None,
             "timestamp": self.timestamp,
         }
+
+class VCSError(Exception):
+    pass
+
+class RepositoryManager:
+    def __init__(self, base_path):
+        self.base_path = base_path
+        self._ensure_base_dir()
+
+    def _ensure_base_dir(self):
+        """Ensure the base repository directory exists with correct permissions"""
+        if not os.path.exists(self.base_path):
+            os.makedirs(self.base_path, exist_ok=True)
+            # Set directory permissions (readable/writable by the app)
+            os.chmod(self.base_path, 0o755)
+
+    def create_repository(self, repo_id):
+        """Create the physical repository structure"""
+        repo_path = os.path.join(self.base_path, str(repo_id))
+        if os.path.exists(repo_path):
+            raise VCSError(f"Repository {repo_id} already exists")
+
+        try:
+            # Create main repository directory
+            os.makedirs(repo_path)
+            
+            # Create standard directory structure
+            dirs = [
+                os.path.join(repo_path, 'files'),
+                os.path.join(repo_path, 'objects'),
+                os.path.join(repo_path, 'refs', 'heads'),
+                os.path.join(repo_path, 'refs', 'tags')
+            ]
+            
+            for dir_path in dirs:
+                os.makedirs(dir_path, exist_ok=True)
+
+            # Initialize repository files
+            with open(os.path.join(repo_path, 'HEAD'), 'w') as f:
+                f.write('ref: refs/heads/main\n')
+                
+            with open(os.path.join(repo_path, 'config'), 'w') as f:
+                f.write('[core]\n\tbare = false\n')
+
+            return True
+        except Exception as e:
+            # Clean up if creation fails
+            if os.path.exists(repo_path):
+                shutil.rmtree(repo_path)
+            raise VCSError(f"Failed to create repository: {str(e)}")
+
+    def delete_repository(self, repo_id):
+        """Delete a repository's physical structure"""
+        repo_path = os.path.join(self.base_path, str(repo_id))
+        if not os.path.exists(repo_path):
+            raise VCSError(f"Repository {repo_id} does not exist")
+        
+        try:
+            shutil.rmtree(repo_path)
+            return True
+        except Exception as e:
+            raise VCSError(f"Failed to delete repository: {str(e)}")
 
 class VersionControlSystem:
     def __init__(self):
@@ -258,3 +323,6 @@ class VersionControlSystem:
             return {'repo': None, 'branch': None}
         repo = self.repositories[self.current_repo]
         return {'repo': self.current_repo, 'branch': repo['current_branch']}
+
+# Initialize the repository manager
+repo_manager = RepositoryManager(os.path.join(os.getcwd(), 'repos'))

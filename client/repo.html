@@ -113,6 +113,44 @@
             cursor: pointer;
         }
         .commit-btn:disabled { background: #444; color: #aaa; cursor: not-allowed; }
+
+        .file-controls {
+            margin: 1em 0;
+            display: flex;
+            gap: 1em;
+        }
+
+        .file-controls input {
+            flex: 1;
+            padding: 0.5em;
+            background: #181818;
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: #e0e0e0;
+        }
+
+        .file-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 0.5em;
+        }
+
+        .file-actions button {
+            padding: 0.3em 0.7em;
+            font-size: 0.9em;
+        }
+
+        .delete-btn {
+            background: #ff5555 !important;
+        }
+        .delete-btn:hover {
+            background: #ff3333 !important;
+        }
     </style>
 </head>
 <body>
@@ -124,6 +162,10 @@
         <div class="main-content">
             <div class="file-explorer">
                 <h2>Files</h2>
+                <div class="file-controls">
+                    <input type="text" id="newFileName" placeholder="New file name">
+                    <button onclick="createFile()">Create File</button>
+                </div>
                 <ul id="fileList"></ul>
             </div>
             <div class="editor">

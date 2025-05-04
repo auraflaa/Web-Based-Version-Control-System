@@ -53,25 +53,6 @@
         </form>
     </div>
     <script src="js/api.js"></script>
-    <script>
-        const form = document.getElementById('loginForm');
-        const errorDiv = document.getElementById('loginError');
-        form.onsubmit = async function(e) {
-            e.preventDefault();
-            errorDiv.textContent = '';
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            try {
-                const res = await apiPost('/api/login', { username, password });
-                if (res.success) {
-                    window.location.href = 'repos.html';
-                } else {
-                    errorDiv.textContent = res.error || 'Invalid credentials.';
-                }
-            } catch (err) {
-                errorDiv.textContent = 'Server error. Please try again.';
-            }
-        };
-    </script>
+    <script src="js/dashboard.js"></script>
 </body>
 </html>
