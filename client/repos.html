@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Repositories - Git GUI</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { background: #181818; color: #e0e0e0; font-family: 'Segoe UI', monospace, Arial, sans-serif; margin: 0; }
+        .repos-container {
+            max-width: 600px;
+            margin: 4em auto;
+            background: #23272e;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            padding: 2em 2.5em;
+        }
+        h2 { color: #00ff00; text-align: center; }
+        ul { list-style: none; padding: 0; }
+        li { margin: 1.5em 0; }
+        .repo-link {
+            display: block;
+            background: #222c36;
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 1em 1.5em;
+            border-radius: 6px;
+            font-size: 1.1em;
+            transition: background 0.2s;
+        }
+        .repo-link:hover { background: #00ff00; color: #181818; }
+        .logout-btn {
+            display: block;
+            margin: 2em auto 0 auto;
+            background: #ff5555;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.7em 2em;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .logout-btn:hover { background: #ff2222; }
+    </style>
+</head>
+<body>
+    <div class="repos-container">
+        <h2>Your Repositories</h2>
+        <ul id="repoList">Loading...</ul>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+    <script src="js/api.js"></script>
+    <script>
+        async function loadRepos() {
+            const repoList = document.getElementById('repoList');
+            repoList.innerHTML = '<li>Loading...</li>';
+            try {
+                const res = await apiGet('/api/repos');
+                if (!res.length) {
+                    repoList.innerHTML = '<li>No repositories found.</li>';
+                    return;
+                }
+                repoList.innerHTML = res.map(r => `<li><a class='repo-link' href="repo.html?repo_id=${encodeURIComponent(r.id)}">${r.name}</a></li>`).join('');
+            } catch (e) {
+                repoList.innerHTML = '<li>Failed to load repositories.</li>';
+            }
+        }
+        function logout() {
+            // Optionally call /api/logout if implemented
+            window.location.href = 'dashboard.html';
+        }
+        loadRepos();
+    </script>
+</body>
+</html>

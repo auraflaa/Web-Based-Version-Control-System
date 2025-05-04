@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Repository - Git GUI</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { margin: 0; background: #181818; color: #e0e0e0; font-family: 'Segoe UI', monospace, Arial, sans-serif; }
+        .layout { display: flex; min-height: 100vh; }
+        .sidebar-left {
+            width: 180px;
+            background: #222c36;
+            padding: 2em 1em 1em 1em;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .sidebar-left button {
+            background: #00ff00;
+            color: #181818;
+            border: none;
+            border-radius: 4px;
+            padding: 0.7em 1.5em;
+            font-size: 1em;
+            margin-bottom: 1em;
+            cursor: pointer;
+        }
+        .sidebar-left button:hover { background: #00cc00; }
+        .main-content {
+            flex: 1;
+            padding: 2em 2em 2em 2em;
+            display: flex;
+            flex-direction: column;
+        }
+        .file-explorer {
+            background: #23272e;
+            border-radius: 10px;
+            padding: 1em 1.5em;
+            margin-bottom: 2em;
+            min-height: 200px;
+        }
+        .file-list-item {
+            margin: 0.5em 0;
+            cursor: pointer;
+            padding: 0.3em 0.7em;
+            border-radius: 4px;
+        }
+        .file-list-item:hover, .file-list-item.active {
+            background: #00ff00;
+            color: #181818;
+        }
+        .editor {
+            background: #23272e;
+            border-radius: 10px;
+            padding: 1em 1.5em;
+            min-height: 200px;
+            margin-bottom: 2em;
+        }
+        .editor textarea {
+            width: 100%;
+            height: 180px;
+            background: #181818;
+            color: #e0e0e0;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            padding: 0.7em;
+            resize: vertical;
+        }
+        .sidebar-right {
+            width: 260px;
+            background: #23272e;
+            padding: 2em 1em 1em 1em;
+            display: flex;
+            flex-direction: column;
+            border-left: 2px solid #222c36;
+        }
+        .status-section {
+            margin-bottom: 2em;
+        }
+        .status-section h3 {
+            color: #00ff00;
+            margin-bottom: 0.5em;
+        }
+        .status-list {
+            list-style: none;
+            padding: 0;
+        }
+        .status-list li {
+            margin-bottom: 0.5em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .status-list button {
+            background: #00ff00;
+            color: #181818;
+            border: none;
+            border-radius: 4px;
+            padding: 0.2em 0.8em;
+            font-size: 0.95em;
+            cursor: pointer;
+        }
+        .status-list button:hover { background: #00cc00; }
+        .commit-btn {
+            background: #00ff00;
+            color: #181818;
+            border: none;
+            border-radius: 4px;
+            padding: 0.7em 1.5em;
+            font-size: 1em;
+            margin-top: 1em;
+            cursor: pointer;
+        }
+        .commit-btn:disabled { background: #444; color: #aaa; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <nav class="sidebar-left">
+            <button onclick="window.location.href='log.html'">Log</button>
+            <button onclick="window.location.href='repos.html'">Back to Repos</button>
+        </nav>
+        <div class="main-content">
+            <div class="file-explorer">
+                <h2>Files</h2>
+                <ul id="fileList"></ul>
+            </div>
+            <div class="editor">
+                <h2>Editor</h2>
+                <div id="editorArea">
+                    <textarea id="fileEditor" placeholder="Select a file to edit..." disabled></textarea>
+                    <button id="saveBtn" disabled>Save</button>
+                </div>
+            </div>
+        </div>
+        <aside class="sidebar-right">
+            <div class="status-section">
+                <h3>Working Tree</h3>
+                <ul id="workingTreeList" class="status-list"></ul>
+            </div>
+            <div class="status-section">
+                <h3>Staging Area</h3>
+                <ul id="stagingList" class="status-list"></ul>
+                <button id="commitBtn" class="commit-btn" disabled>Commit</button>
+            </div>
+            <div class="status-section">
+                <h3>Committed</h3>
+                <ul id="committedList" class="status-list"></ul>
+            </div>
+        </aside>
+    </div>
+    <script src="js/api.js"></script>
+    <script src="js/repo.js"></script>
+</body>
+</html>

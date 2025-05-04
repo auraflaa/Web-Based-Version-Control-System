@@ -1,7 +1,7 @@
 import os
 
 class Config:
-    # Dynamically set the database URI using the environment variables
-    SQLALCHEMY_DATABASE_URI = f"mysql+mysqlconnector://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
+    # Directly set the database URI for development
+    SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://root:Pritam@127.0.0.1/codehub"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 

@@ -1,6 +1,6 @@
 // api.js
 
-const API_URL = "https://your-api-endpoint.com"; // Replace with your API base URL
+const API_URL = ""; // Use relative URLs for local Flask backend
 
 // Helper function to fetch data from API
 async function fetchData(endpoint) {
@@ -15,6 +15,16 @@ async function fetchData(endpoint) {
     return null;
   }
 }
+
+async function apiPost(endpoint, data) {
+  const response = await fetch(`${API_URL}${endpoint}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  return await response.json();
+}
+
 async function getCommits() {
   const data = await fetchData('/api/commits');
   return data;  // Adjust data structure as needed
@@ -39,5 +49,5 @@ async function getGraphData() {
 }
 
 // Export functions for use in other files
-export { getCommits, getBranches, getFiles, getGraphData };
+export { getCommits, getBranches, getFiles, getGraphData, apiPost };
 

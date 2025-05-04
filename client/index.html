@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web VCS Terminal</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #181818;
+            color: #e0e0e0;
+            font-family: monospace;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            min-width: 100vw;
+            overflow: hidden;
+        }
+        #terminal {
+            flex: 1 1 auto;
+            background: #181818;
+            padding: 2em 1em 4em 1em;
+            overflow-y: auto;
+            border-radius: 0;
+            margin: 0;
+            font-size: 1.1em;
+            width: 100vw;
+            height: 100%;
+            box-sizing: border-box;
+        }
+        #cli-form {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            background: #111;
+            padding: 1em 0.5em;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+        #cli-prompt {
+            color: #00ff00;
+            margin-right: 0.5em;
+        }
+        #cli-input {
+            flex: 1;
+            background: #222;
+            color: #e0e0e0;
+            border: none;
+            font-family: monospace;
+            font-size: 1.1em;
+            outline: none;
+            padding: 0.3em 0.5em;
+        }
+        .cli-output {
+            color: #e0e0e0;
+            white-space: pre-wrap;
+            margin-bottom: 0.2em;
+        }
+        .cli-cmd {
+            color: #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <div id="terminal"></div>
+    <form id="cli-form" autocomplete="off" onsubmit="return false;">
+        <span id="cli-prompt">vcs&gt;</span>
+        <input id="cli-input" type="text" autofocus autocomplete="off" />
+    </form>
+    <script>
+        const terminal = document.getElementById('terminal');
+        const cliForm = document.getElementById('cli-form');
+        const cliInput = document.getElementById('cli-input');
+        const cliPrompt = document.getElementById('cli-prompt');
+        let commandHistory = [];
+        let historyIndex = -1;
+        let currentPrompt = 'vcs>';
+        let messageHistory = [];
+
+        function printOutput(text, isError = false) {
+            const div = document.createElement('div');
+            div.className = 'cli-output';
+            if (isError) div.style.color = '#ff5555';
+            div.textContent = text;
+            terminal.appendChild(div);
+            terminal.scrollTop = terminal.scrollHeight;
+            messageHistory.push({ type: 'output', text, isError });
+        }
+        function printCmd(cmd) {
+            const div = document.createElement('div');
+            div.innerHTML = `<span class='cli-cmd'>${currentPrompt} ${cmd}</span>`;
+            terminal.appendChild(div);
+            terminal.scrollTop = terminal.scrollHeight;
+            messageHistory.push({ type: 'cmd', text: cmd });
+        }
+        function restoreHistory() {
+            terminal.innerHTML = '';
+            for (const msg of messageHistory) {
+                if (msg.type === 'cmd') {
+                    const div = document.createElement('div');
+                    div.innerHTML = `<span class='cli-cmd'>${currentPrompt} ${msg.text}</span>`;
+                    terminal.appendChild(div);
+                } else if (msg.type === 'output') {
+                    const div = document.createElement('div');
+                    div.className = 'cli-output';
+                    if (msg.isError) div.style.color = '#ff5555';
+                    div.textContent = msg.text;
+                    terminal.appendChild(div);
+                }
+            }
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+        function setPrompt(repo, branch) {
+            if (repo && branch) {
+                currentPrompt = `${repo}(${branch})>`;
+            } else {
+                currentPrompt = 'vcs>';
+            }
+            cliPrompt.textContent = currentPrompt;
+        }
+        cliForm.onsubmit = async function(e) {
+            e.preventDefault(); // Prevent any form submission from reloading the page
+            const cmd = cliInput.value.trim();
+            if (!cmd) return;
+            printCmd(cmd);
+            commandHistory.push(cmd);
+            historyIndex = commandHistory.length;
+            cliInput.value = '';
+            cliInput.disabled = true;
+            printOutput('...processing...');
+            const res = await fetch('/cli', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ command: cmd })
+            });
+            const data = await res.json();
+            // Only remove the '...processing...' message if it is the last child
+            if (terminal.lastChild && terminal.lastChild.textContent === '...processing...') {
+                terminal.removeChild(terminal.lastChild);
+            }
+            if (data.prompt) setPrompt(data.prompt.repo, data.prompt.branch);
+            if (data.output === '\\033c') {
+                messageHistory = [];
+                printOutput('Welcome to the Web-Based VCS CLI! Type "help" for available commands.');
+            } else if (data.output && data.output.toLowerCase().includes('unknown command')) {
+                printOutput('Invalid command. Type --help for available commands.', true);
+            } else if (data.error) {
+                printOutput(data.error, true);
+            } else {
+                printOutput(data.output);
+            }
+            cliInput.disabled = false;
+            cliInput.focus();
+        };
+        cliInput.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowUp') {
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    cliInput.value = commandHistory[historyIndex] || '';
+                }
+                e.preventDefault();
+            } else if (e.key === 'ArrowDown') {
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    cliInput.value = commandHistory[historyIndex] || '';
+                } else {
+                    cliInput.value = '';
+                }
+                e.preventDefault();
+            }
+        });
+        // Welcome message
+        printOutput('Welcome to the Web-Based VCS CLI! Type "help" for available commands.');
+    </script>
+</body>
+</html>

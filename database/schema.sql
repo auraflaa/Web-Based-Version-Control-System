@@ -1,52 +1,90 @@
 CREATE DATABASE codehub;
 USE codehub;
-CREATE TABLE `users` (
-  `id` INT PRIMARY KEY AUTO_INCREMENT,
-  `name` VARCHAR(100) NOT NULL,
-  `email` VARCHAR(100) NOT NULL UNIQUE
-);
-CREATE TABLE `branches` (
-  `id` INT PRIMARY KEY AUTO_INCREMENT,
-  `branch_name` VARCHAR(100) NOT NULL,
-  `head_commit_id` INT,
-  `user_id` INT,
-  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
-);
-CREATE TABLE `files` (
-  `id` INT PRIMARY KEY AUTO_INCREMENT,
-  `filename` VARCHAR(255) NOT NULL,
-  `content` TEXT NOT NULL,
-  `user_id` INT,
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
-);
-CREATE TABLE `commits` (
-  `id` INT PRIMARY KEY AUTO_INCREMENT,
-  `commit_hash` CHAR(40) NOT NULL,
-  `message` TEXT,
-  `file_id` INT DEFAULT NULL,
-  `branch_id` INT DEFAULT NULL,
-  `parent_commit_id` INT DEFAULT NULL,
-  `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `merge_from_commit_id` INT DEFAULT NULL,
-  `merge_status` VARCHAR(50) DEFAULT NULL,
-  FOREIGN KEY (`file_id`) REFERENCES `files`(`id`),
-  FOREIGN KEY (`branch_id`) REFERENCES `branches`(`id`),
-  FOREIGN KEY (`parent_commit_id`) REFERENCES `commits`(`id`),
-  FOREIGN KEY (`merge_from_commit_id`) REFERENCES `commits`(`id`)
-);
--- Add foreign key for `head_commit_id` in the `branches` table
-ALTER TABLE `branches`
-  ADD FOREIGN KEY (`head_commit_id`) REFERENCES `commits`(`id`);
--- Insert sample user
-INSERT INTO `users` (name, email) VALUES ('John Doe', 'john.doe@example.com');
 
--- Insert a branch for this user (assuming user_id = 1)
-INSERT INTO `branches` (branch_name, user_id) VALUES ('main', 1);
+CREATE TABLE users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL
+);
 
--- Insert a file for this user (assuming user_id = 1)
-INSERT INTO `files` (filename, content, user_id) VALUES ('README.md', 'This is a sample project', 1);
+CREATE TABLE branches (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  branch_name VARCHAR(100) NOT NULL,
+  head_commit_id INT,
+  user_id INT,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
 
--- Insert a commit for the user (assuming file_id = 1, branch_id = 1, and no parent_commit_id)
-INSERT INTO `commits` (commit_hash, message, file_id, branch_id, parent_commit_id) 
-VALUES ('abc123hash', 'Initial commit', 1, 1, NULL);
+CREATE TABLE files (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  filename VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE commits (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  commit_hash CHAR(40) NOT NULL,
+  message TEXT,
+  branch_id INT,
+  user_id INT,
+  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  merge_status VARCHAR(50) DEFAULT NULL,
+  FOREIGN KEY (branch_id) REFERENCES branches(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE commit_files (
+  commit_id INT,
+  file_id INT,
+  content TEXT NOT NULL,
+  PRIMARY KEY (commit_id, file_id),
+  FOREIGN KEY (commit_id) REFERENCES commits(id),
+  FOREIGN KEY (file_id) REFERENCES files(id)
+);
+
+CREATE TABLE commit_parents (
+  commit_id INT,
+  parent_commit_id INT,
+  PRIMARY KEY (commit_id, parent_commit_id),
+  FOREIGN KEY (commit_id) REFERENCES commits(id),
+  FOREIGN KEY (parent_commit_id) REFERENCES commits(id)
+);
+
+ALTER TABLE branches
+  ADD FOREIGN KEY (head_commit_id) REFERENCES commits(id);
+
+CREATE TABLE repositories (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    user_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Table for working tree (tracks modified/untracked files per user/repo)
+CREATE TABLE working_tree (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    repo_id INT,
+    file_path VARCHAR(512) NOT NULL,
+    status VARCHAR(32) NOT NULL, -- e.g., 'modified', 'deleted', 'untracked'
+    last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (repo_id) REFERENCES repositories(id)
+);
+
+-- Table for staging area (tracks staged files per user/repo)
+CREATE TABLE staging_area (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    repo_id INT,
+    file_path VARCHAR(512) NOT NULL,
+    staged_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (repo_id) REFERENCES repositories(id)
+);
+
+-- Update already inputted values with demo passwords (plain text for demo, use hashes in production)
+UPDATE users SET password = 'alice123' WHERE email = 'alice@example.com';
+UPDATE users SET password = 'bob123' WHERE email = 'bob@example.com';
