@@ -1,232 +1,232 @@
-// js/repo.js
-// Handles file explorer, editor, working tree, staging, and commit UI logic
+import { requireAuth, showError, syncRepository, logout } from './api.js';
 
-const repoId = new URLSearchParams(window.location.search).get('repo_id');
-const userId = localStorage.getItem('userId') || 1; // Fallback for testing
+let currentRepoId = null;
+let currentSection = 'overview';
 
-async function loadFileList() {
-    const res = await fetchAPI(`/api/repos/${repoId}/files?user_id=${userId}`);
-    const fileList = document.getElementById('fileList');
-    fileList.innerHTML = '';
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', async () => {
+    if (!requireAuth()) return;
     
-    res.forEach(f => {
-        const li = document.createElement('li');
-        li.className = 'file-list-item';
+    // Display user name
+    const userName = localStorage.getItem('userName');
+    document.getElementById('userName').textContent = userName;
+    
+    // Get repository ID from URL
+    const params = new URLSearchParams(window.location.search);
+    currentRepoId = params.get('id');
+    
+    if (!currentRepoId) {
+        window.location.href = 'repos.html';
+        return;
+    }
+    
+    // Load repository data
+    await loadRepository();
+    
+    // Setup navigation
+    setupNavigation();
+    
+    // Load initial section
+    loadSection(currentSection);
+});
+
+async function loadRepository() {
+    const loading = document.getElementById('loading');
+    
+    try {
+        loading.style.display = 'block';
         
-        const nameSpan = document.createElement('span');
-        nameSpan.textContent = f.name;
-        nameSpan.onclick = () => selectFile(f.name);
+        const response = await fetch(`/api/repos/${currentRepoId}`);
+        const data = await response.json();
         
-        const actions = document.createElement('div');
-        actions.className = 'file-actions';
+        if (!response.ok) {
+            throw new Error(data.error || 'Failed to load repository');
+        }
         
-        const editBtn = document.createElement('button');
-        editBtn.textContent = 'Edit';
-        editBtn.onclick = () => selectFile(f.name);
+        // Update repository name
+        document.getElementById('repoName').textContent = data.name;
+        document.title = `${data.name} - Git GUI`;
         
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Delete';
-        deleteBtn.className = 'delete-btn';
-        deleteBtn.onclick = (e) => {
-            e.stopPropagation();
-            deleteFile(f.name);
-        };
+        // Load repository stats
+        await loadStats();
         
-        actions.appendChild(editBtn);
-        actions.appendChild(deleteBtn);
+        loading.style.display = 'none';
+    } catch (error) {
+        loading.style.display = 'none';
+        showError(error);
+    }
+}
+
+async function loadStats() {
+    try {
+        // Load commit count
+        const commitsResponse = await fetch(`/api/repos/${currentRepoId}/commits`);
+        const commitsData = await commitsResponse.json();
+        document.getElementById('commitCount').textContent = commitsData.total || 0;
         
-        li.appendChild(nameSpan);
-        li.appendChild(actions);
-        fileList.appendChild(li);
+        // Load branch count
+        const branchesResponse = await fetch(`/api/repos/${currentRepoId}/branches`);
+        const branchesData = await branchesResponse.json();
+        document.getElementById('branchCount').textContent = branchesData.total || 0;
+        
+        // Load file count
+        const filesResponse = await fetch(`/api/repos/${currentRepoId}/files`);
+        const filesData = await filesResponse.json();
+        document.getElementById('fileCount').textContent = filesData.length || 0;
+    } catch (error) {
+        console.error('Failed to load stats:', error);
+    }
+}
+
+function setupNavigation() {
+    const navItems = document.querySelectorAll('.nav-item');
+    
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Remove active class from all items
+            navItems.forEach(i => i.classList.remove('active'));
+            
+            // Add active class to clicked item
+            item.classList.add('active');
+            
+            // Get section name and load it
+            const section = item.dataset.section;
+            loadSection(section);
+        });
     });
 }
 
-async function createFile() {
-    const nameInput = document.getElementById('newFileName');
-    const filename = nameInput.value.trim();
+async function loadSection(section) {
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
     
-    if (!filename) {
-        alert('Please enter a file name');
-        return;
+    // Show selected section
+    const sectionElement = document.getElementById(section);
+    if (sectionElement) {
+        sectionElement.style.display = 'block';
     }
     
-    try {
-        await fetchAPI(`/api/repos/${repoId}/files`, {
-            method: 'POST',
-            body: JSON.stringify({
-                filename,
-                content: '',
-                user_id: userId
-            })
-        });
-        
-        nameInput.value = '';
-        await loadFileList();
-        await updateWorkingTree();
-        
-    } catch (error) {
-        showError(error);
+    // Load section content if needed
+    switch (section) {
+        case 'files':
+            await loadFiles();
+            break;
+        case 'commits':
+            await loadCommits();
+            break;
+        case 'branches':
+            await loadBranches();
+            break;
+        case 'graph':
+            await loadGraph();
+            break;
     }
+    
+    currentSection = section;
 }
 
-async function deleteFile(filename) {
-    if (!confirm(`Are you sure you want to delete ${filename}?`)) {
-        return;
-    }
+async function loadFiles() {
+    const filesSection = document.getElementById('files');
+    filesSection.innerHTML = '<div class="loading">Loading files...</div>';
     
     try {
-        await fetchAPI(`/api/repos/${repoId}/files/${encodeURIComponent(filename)}?user_id=${userId}`, {
-            method: 'DELETE'
-        });
+        const response = await fetch(`/api/repos/${currentRepoId}/files`);
+        const data = await response.json();
         
-        await loadFileList();
-        await updateWorkingTree();
-        
-        // Clear editor if deleted file was selected
-        const editor = document.getElementById('fileEditor');
-        if (editor.dataset.filename === filename) {
-            editor.value = '';
-            editor.disabled = true;
-            document.getElementById('saveBtn').disabled = true;
-            delete editor.dataset.filename;
+        if (!response.ok) {
+            throw new Error(data.error || 'Failed to load files');
         }
         
+        // Render files section (to be implemented)
+        filesSection.innerHTML = '<h2>Files content here</h2>';
     } catch (error) {
-        showError(error);
+        filesSection.innerHTML = `<div class="error-message">${error.message}</div>`;
     }
 }
 
-async function selectFile(filename) {
-    try {
-        const response = await fetchAPI(`/api/repos/${repoId}/files/${encodeURIComponent(filename)}?user_id=${userId}`);
-        const editor = document.getElementById('fileEditor');
-        editor.value = response.content || '';
-        editor.disabled = false;
-        editor.dataset.filename = filename;
-        document.getElementById('saveBtn').disabled = false;
-        
-        // Highlight selected file
-        document.querySelectorAll('.file-list-item').forEach(el => {
-            if (el.querySelector('span').textContent === filename) {
-                el.classList.add('active');
-            } else {
-                el.classList.remove('active');
-            }
-        });
-        
-    } catch (error) {
-        showError(error);
-    }
-}
-
-async function saveFile() {
-    const editor = document.getElementById('fileEditor');
-    const filename = editor.dataset.filename;
-    if (!filename) return;
+async function loadCommits() {
+    const commitsSection = document.getElementById('commits');
+    commitsSection.innerHTML = '<div class="loading">Loading commits...</div>';
     
     try {
-        await fetchAPI(`/api/repos/${repoId}/files/${encodeURIComponent(filename)}`, {
-            method: 'PUT',
-            body: JSON.stringify({
-                content: editor.value,
-                user_id: userId
-            })
-        });
+        const response = await fetch(`/api/repos/${currentRepoId}/commits`);
+        const data = await response.json();
         
-        await updateWorkingTree();
+        if (!response.ok) {
+            throw new Error(data.error || 'Failed to load commits');
+        }
         
+        // Render commits section (to be implemented)
+        commitsSection.innerHTML = '<h2>Commits content here</h2>';
     } catch (error) {
-        showError(error);
+        commitsSection.innerHTML = `<div class="error-message">${error.message}</div>`;
     }
 }
 
-async function updateWorkingTree() {
-    try {
-        const res = await fetchAPI(`/api/working-tree?user_id=${userId}&repo_id=${repoId}`);
-        const list = document.getElementById('workingTreeList');
-        list.innerHTML = '';
-        
-        res.forEach(f => {
-            const li = document.createElement('li');
-            li.textContent = `${f.file_path} (${f.status})`;
-            
-            const stageBtn = document.createElement('button');
-            stageBtn.textContent = 'Stage';
-            stageBtn.onclick = () => stageFile(f.file_path);
-            
-            li.appendChild(stageBtn);
-            list.appendChild(li);
-        });
-        
-        await updateStaging();
-        
-    } catch (error) {
-        showError(error);
-    }
-}
-
-async function stageFile(filePath) {
-    try {
-        await fetchAPI('/api/stage', {
-            method: 'POST',
-            body: JSON.stringify({
-                user_id: userId,
-                repo_id: repoId,
-                file_path: filePath
-            })
-        });
-        
-        await updateWorkingTree();
-        
-    } catch (error) {
-        showError(error);
-    }
-}
-
-async function updateStaging() {
-    try {
-        const res = await fetchAPI(`/api/staging?user_id=${userId}&repo_id=${repoId}`);
-        const list = document.getElementById('stagingList');
-        list.innerHTML = '';
-        
-        res.forEach(f => {
-            const li = document.createElement('li');
-            li.textContent = f.file_path;
-            list.appendChild(li);
-        });
-        
-        document.getElementById('commitBtn').disabled = res.length === 0;
-        
-    } catch (error) {
-        showError(error);
-    }
-}
-
-async function commitFiles() {
-    const message = prompt('Enter commit message:');
-    if (!message) return;
+async function loadBranches() {
+    const branchesSection = document.getElementById('branches');
+    branchesSection.innerHTML = '<div class="loading">Loading branches...</div>';
     
     try {
-        await fetchAPI('/api/commit', {
-            method: 'POST',
-            body: JSON.stringify({
-                user_id: userId,
-                repo_id: repoId,
-                message
-            })
-        });
+        const response = await fetch(`/api/repos/${currentRepoId}/branches`);
+        const data = await response.json();
         
-        await updateWorkingTree();
+        if (!response.ok) {
+            throw new Error(data.error || 'Failed to load branches');
+        }
         
+        // Render branches section (to be implemented)
+        branchesSection.innerHTML = '<h2>Branches content here</h2>';
     } catch (error) {
-        showError(error);
+        branchesSection.innerHTML = `<div class="error-message">${error.message}</div>`;
     }
 }
 
-// Event listeners
-document.getElementById('saveBtn').onclick = saveFile;
-document.getElementById('commitBtn').onclick = commitFiles;
+async function loadGraph() {
+    const graphSection = document.getElementById('graph');
+    graphSection.innerHTML = '<div class="loading">Loading commit graph...</div>';
+    
+    try {
+        const response = await fetch(`/api/repos/${currentRepoId}/graph`);
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.error || 'Failed to load graph');
+        }
+        
+        // Render graph section (to be implemented)
+        graphSection.innerHTML = '<h2>Commit graph here</h2>';
+    } catch (error) {
+        graphSection.innerHTML = `<div class="error-message">${error.message}</div>`;
+    }
+}
 
-// Initial load
-loadFileList();
-updateWorkingTree();
+// Make functions global for onclick handlers
+window.sync = async () => {
+    try {
+        const userId = localStorage.getItem('userId');
+        const result = await syncRepository(currentRepoId, userId);
+        
+        if (result.success) {
+            // Reload repository data after sync
+            await loadRepository();
+        } else {
+            throw new Error(result.error || 'Failed to sync repository');
+        }
+    } catch (error) {
+        showError(error);
+    }
+};
+
+window.download = async () => {
+    try {
+        window.location.href = `/api/repos/${currentRepoId}/download`;
+    } catch (error) {
+        showError(error);
+    }
+};
+
+// Make logout function global for onclick handler
+window.logout = logout;

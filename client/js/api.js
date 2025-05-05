@@ -1,133 +1,161 @@
-const API_BASE = 'http://localhost:5000';
+// API client for version control system
+const API_BASE = 'http://127.0.0.1:5000/api';
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 1000;
 
+// Error class for API errors
 class APIError extends Error {
     constructor(message, status) {
         super(message);
+        this.name = 'APIError';
         this.status = status;
     }
 }
 
-async function handleResponse(response) {
-    const data = await response.json();
-    if (!response.ok) {
-        throw new APIError(data.error || 'Unknown error occurred', response.status);
-    }
-    return data;
-}
-
-async function fetchAPI(endpoint, options = {}) {
+// Generic API request function
+export async function fetchAPI(endpoint, options = {}) {
     try {
-        const response = await fetch(`${API_BASE}${endpoint}`, {
+        const url = endpoint.startsWith('http') ? endpoint : `${API_BASE}${endpoint}`;
+        console.log(`Making ${options.method || 'GET'} request to:`, url);
+        
+        const response = await fetch(url, {
             ...options,
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
                 ...options.headers
-            }
+            },
+            mode: 'cors'
         });
-        return await handleResponse(response);
-    } catch (error) {
-        if (error instanceof APIError) {
-            throw error;
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new APIError(data.error || 'API request failed', response.status);
         }
-        throw new APIError('Network error occurred', 0);
+        
+        return data;
+    } catch (error) {
+        console.error(`API Error:`, error);
+        throw error;
     }
 }
 
+// Authentication
+export async function login(email, password) {
+    return await fetchAPI('/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password })
+    });
+}
+
+export async function register(name, email, password) {
+    return await fetchAPI('/register', {
+        method: 'POST',
+        body: JSON.stringify({ name, email, password })
+    });
+}
+
+export async function logout() {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+    window.location.href = 'dashboard.html';
+}
+
 // Repository operations
-export async function listRepositories() {
-    return await fetchAPI('/api/repos');
+export async function listRepositories(userId) {
+    return await fetchAPI(`/repos?user_id=${userId}`);
 }
 
-export async function createRepository(name, description = '') {
-    return await fetchAPI('/api/repos', {
+export async function createRepository(name, userId) {
+    return await fetchAPI('/repos', {
         method: 'POST',
-        body: JSON.stringify({ name, description })
+        body: JSON.stringify({ name, user_id: userId })
     });
 }
 
-export async function getRepository(repoId) {
-    return await fetchAPI(`/api/repos/${repoId}`);
-}
-
-// Branch operations
-export async function listBranches(repoId) {
-    return await fetchAPI(`/api/repos/${repoId}/branches`);
-}
-
-export async function createBranch(repoId, name, fromBranch = 'main') {
-    return await fetchAPI(`/api/repos/${repoId}/branches`, {
+export async function syncRepository(repoId, userId) {
+    return await fetchAPI(`/repos/${repoId}/sync`, {
         method: 'POST',
-        body: JSON.stringify({ name, from_branch: fromBranch })
+        body: JSON.stringify({ user_id: userId })
     });
-}
-
-// Commit operations
-export async function listCommits(repoId, branch = 'main') {
-    return await fetchAPI(`/api/repos/${repoId}/commits?branch=${branch}`);
-}
-
-export async function commit(repoId, message, files, branch = 'main') {
-    const formData = new FormData();
-    formData.append('message', message);
-    formData.append('branch', branch);
-    files.forEach(file => formData.append('files', file));
-
-    return await fetch(`${API_BASE}/api/repos/${repoId}/commits`, {
-        method: 'POST',
-        body: formData
-    }).then(handleResponse);
 }
 
 // File operations
-export async function listFiles(repoId, path = '', branch = 'main') {
-    return await fetchAPI(`/api/repos/${repoId}/files?path=${path}&branch=${branch}`);
+export async function listFiles(repoId, path = '') {
+    return await fetchAPI(`/repos/${repoId}/files?path=${encodeURIComponent(path)}`);
 }
 
-export async function getFile(repoId, path, branch = 'main') {
-    return await fetchAPI(`/api/repos/${repoId}/files/${path}?branch=${branch}`);
+export async function getFileContent(repoId, filePath) {
+    return await fetchAPI(`/repos/${repoId}/files/${encodeURIComponent(filePath)}`);
 }
 
-export async function createFile(repoId, filename, content = '') {
-    return await fetchAPI(`/api/repos/${repoId}/files`, {
+export async function createFile(repoId, path, content, message) {
+    return await fetchAPI(`/repos/${repoId}/files`, {
         method: 'POST',
-        body: JSON.stringify({ filename, content })
+        body: JSON.stringify({ path, content, message })
     });
 }
 
-export async function deleteFile(repoId, filename) {
-    return await fetchAPI(`/api/repos/${repoId}/files/${encodeURIComponent(filename)}`, {
-        method: 'DELETE'
-    });
-}
-
-export async function updateFile(repoId, filename, content) {
-    return await fetchAPI(`/api/repos/${repoId}/files/${encodeURIComponent(filename)}`, {
+export async function updateFile(repoId, filePath, content, message) {
+    return await fetchAPI(`/repos/${repoId}/files/${encodeURIComponent(filePath)}`, {
         method: 'PUT',
-        body: JSON.stringify({ content })
+        body: JSON.stringify({ content, message })
     });
 }
 
-// Graph operations
-export async function getCommitGraph(repoId) {
-    return await fetchAPI(`/api/repos/${repoId}/graph`);
+export async function deleteFile(repoId, filePath, message) {
+    return await fetchAPI(`/repos/${repoId}/files/${encodeURIComponent(filePath)}`, {
+        method: 'DELETE',
+        body: JSON.stringify({ message })
+    });
 }
 
-// Error handling helper
-export function showError(error) {
-    const errorDiv = document.getElementById('error-message');
-    if (errorDiv) {
-        errorDiv.textContent = error.message;
-        errorDiv.style.display = 'block';
+// Working tree and staging operations
+export async function stageFile(repoId, filePath) {
+    return await fetchAPI(`/repos/${repoId}/stage`, {
+        method: 'POST',
+        body: JSON.stringify({ file_path: filePath })
+    });
+}
+
+export async function unstageFile(repoId, filePath) {
+    return await fetchAPI(`/repos/${repoId}/unstage`, {
+        method: 'POST',
+        body: JSON.stringify({ file_path: filePath })
+    });
+}
+
+export async function commit(repoId, message) {
+    return await fetchAPI(`/repos/${repoId}/commit`, {
+        method: 'POST',
+        body: JSON.stringify({ message })
+    });
+}
+
+// Error display utility
+export function showError(error, errorDiv = 'error-message') {
+    const element = document.getElementById(errorDiv);
+    if (element) {
+        element.textContent = error.message || 'An unexpected error occurred';
+        element.style.display = 'block';
         setTimeout(() => {
-            errorDiv.style.display = 'none';
+            element.style.display = 'none';
         }, 5000);
     } else {
         console.error(error);
     }
 }
 
-export function logout() {
-    localStorage.removeItem('userId');
-    window.location.href = 'dashboard.html';
+// Authentication check utility
+export function requireAuth() {
+    const userId = localStorage.getItem('userId');
+    const userName = localStorage.getItem('userName');
+    
+    if (!userId || !userName) {
+        window.location.href = 'dashboard.html';
+        return false;
+    }
+    return true;
 }
 

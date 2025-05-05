@@ -5,194 +5,208 @@
     <title>Repository - Git GUI</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body { margin: 0; background: #181818; color: #e0e0e0; font-family: 'Segoe UI', monospace, Arial, sans-serif; }
-        .layout { display: flex; min-height: 100vh; }
-        .sidebar-left {
-            width: 180px;
-            background: #222c36;
-            padding: 2em 1em 1em 1em;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .sidebar-left button {
-            background: #00ff00;
-            color: #181818;
-            border: none;
-            border-radius: 4px;
-            padding: 0.7em 1.5em;
-            font-size: 1em;
-            margin-bottom: 1em;
-            cursor: pointer;
-        }
-        .sidebar-left button:hover { background: #00cc00; }
-        .main-content {
-            flex: 1;
-            padding: 2em 2em 2em 2em;
-            display: flex;
-            flex-direction: column;
-        }
-        .file-explorer {
-            background: #23272e;
-            border-radius: 10px;
-            padding: 1em 1.5em;
-            margin-bottom: 2em;
-            min-height: 200px;
-        }
-        .file-list-item {
-            margin: 0.5em 0;
-            cursor: pointer;
-            padding: 0.3em 0.7em;
-            border-radius: 4px;
-        }
-        .file-list-item:hover, .file-list-item.active {
-            background: #00ff00;
-            color: #181818;
-        }
-        .editor {
-            background: #23272e;
-            border-radius: 10px;
-            padding: 1em 1.5em;
-            min-height: 200px;
-            margin-bottom: 2em;
-        }
-        .editor textarea {
-            width: 100%;
-            height: 180px;
+        body {
+            margin: 0;
             background: #181818;
             color: #e0e0e0;
-            border: none;
-            border-radius: 4px;
-            font-size: 1em;
-            padding: 0.7em;
-            resize: vertical;
-        }
-        .sidebar-right {
-            width: 260px;
-            background: #23272e;
-            padding: 2em 1em 1em 1em;
+            font-family: 'Segoe UI', monospace, Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            border-left: 2px solid #222c36;
+            min-height: 100vh;
         }
-        .status-section {
-            margin-bottom: 2em;
-        }
-        .status-section h3 {
-            color: #00ff00;
-            margin-bottom: 0.5em;
-        }
-        .status-list {
-            list-style: none;
-            padding: 0;
-        }
-        .status-list li {
-            margin-bottom: 0.5em;
+        .header {
+            background: #222c36;
+            padding: 1em 2em;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid #333;
         }
-        .status-list button {
-            background: #00ff00;
-            color: #181818;
-            border: none;
-            border-radius: 4px;
-            padding: 0.2em 0.8em;
-            font-size: 0.95em;
-            cursor: pointer;
-        }
-        .status-list button:hover { background: #00cc00; }
-        .commit-btn {
-            background: #00ff00;
-            color: #181818;
-            border: none;
-            border-radius: 4px;
-            padding: 0.7em 1.5em;
-            font-size: 1em;
-            margin-top: 1em;
-            cursor: pointer;
-        }
-        .commit-btn:disabled { background: #444; color: #aaa; cursor: not-allowed; }
-
-        .file-controls {
-            margin: 1em 0;
+        .repo-info {
             display: flex;
+            align-items: center;
             gap: 1em;
         }
-
-        .file-controls input {
-            flex: 1;
-            padding: 0.5em;
-            background: #181818;
-            border: 1px solid #444;
+        .repo-name {
+            font-size: 1.5em;
+            color: #00ff00;
+        }
+        .back-btn {
+            background: #444;
+            color: white;
+            border: none;
             border-radius: 4px;
+            padding: 0.5em 1em;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .back-btn:hover { background: #555; }
+        .main-content {
+            display: flex;
+            flex: 1;
+        }
+        .sidebar {
+            width: 200px;
+            background: #23272e;
+            padding: 1em 0;
+        }
+        .nav-item {
+            display: block;
+            padding: 0.8em 1.5em;
             color: #e0e0e0;
+            text-decoration: none;
+            border-left: 3px solid transparent;
         }
-
-        .file-list-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .nav-item:hover {
+            background: #2c323c;
         }
-
-        .file-actions {
-            display: flex;
-            gap: 0.5em;
+        .nav-item.active {
+            border-left-color: #00ff00;
+            background: #2c323c;
         }
-
-        .file-actions button {
-            padding: 0.3em 0.7em;
+        .content-area {
+            flex: 1;
+            padding: 2em;
+            overflow-y: auto;
+        }
+        .section-header {
+            margin-bottom: 1.5em;
+            padding-bottom: 0.5em;
+            border-bottom: 1px solid #333;
+        }
+        .error-message {
+            background: #ff5555;
+            color: white;
+            padding: 0.7em 1em;
+            border-radius: 4px;
+            margin: 1em 0;
+            display: none;
+        }
+        .loading {
+            color: #888;
+            font-style: italic;
+            text-align: center;
+            padding: 2em;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5em;
+            margin-bottom: 2em;
+        }
+        .stat-card {
+            background: #23272e;
+            padding: 1.5em;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2em;
+            color: #00ff00;
+            margin-bottom: 0.2em;
+        }
+        .stat-label {
+            color: #888;
             font-size: 0.9em;
         }
-
-        .delete-btn {
-            background: #ff5555 !important;
+        .action-bar {
+            display: flex;
+            gap: 1em;
+            margin-bottom: 1.5em;
         }
-        .delete-btn:hover {
-            background: #ff3333 !important;
+        .action-btn {
+            padding: 0.7em 1.5em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
         }
+        .primary-btn {
+            background: #00ff00;
+            color: #181818;
+        }
+        .primary-btn:hover { background: #00cc00; }
+        .secondary-btn {
+            background: #444;
+            color: #e0e0e0;
+        }
+        .secondary-btn:hover { background: #555; }
     </style>
 </head>
 <body>
-    <div class="layout">
-        <nav class="sidebar-left">
-            <button onclick="window.location.href='log.html'">Log</button>
-            <button onclick="window.location.href='repos.html'">Back to Repos</button>
-        </nav>
-        <div class="main-content">
-            <div class="file-explorer">
-                <h2>Files</h2>
-                <div class="file-controls">
-                    <input type="text" id="newFileName" placeholder="New file name">
-                    <button onclick="createFile()">Create File</button>
-                </div>
-                <ul id="fileList"></ul>
-            </div>
-            <div class="editor">
-                <h2>Editor</h2>
-                <div id="editorArea">
-                    <textarea id="fileEditor" placeholder="Select a file to edit..." disabled></textarea>
-                    <button id="saveBtn" disabled>Save</button>
-                </div>
-            </div>
+    <header class="header">
+        <div class="repo-info">
+            <a href="repos.html" class="back-btn">← Back to Repositories</a>
+            <h1 id="repoName" class="repo-name">Loading...</h1>
         </div>
-        <aside class="sidebar-right">
-            <div class="status-section">
-                <h3>Working Tree</h3>
-                <ul id="workingTreeList" class="status-list"></ul>
-            </div>
-            <div class="status-section">
-                <h3>Staging Area</h3>
-                <ul id="stagingList" class="status-list"></ul>
-                <button id="commitBtn" class="commit-btn" disabled>Commit</button>
-            </div>
-            <div class="status-section">
-                <h3>Committed</h3>
-                <ul id="committedList" class="status-list"></ul>
-            </div>
-        </aside>
-    </div>
-    <script src="js/api.js"></script>
-    <script src="js/repo.js"></script>
+        <div class="user-info">
+            <span id="userName"></span>
+            <button class="back-btn" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <nav class="sidebar">
+            <a href="#overview" class="nav-item active" data-section="overview">Overview</a>
+            <a href="#files" class="nav-item" data-section="files">Files</a>
+            <a href="#commits" class="nav-item" data-section="commits">Commits</a>
+            <a href="#branches" class="nav-item" data-section="branches">Branches</a>
+            <a href="#graph" class="nav-item" data-section="graph">Graph</a>
+        </nav>
+
+        <div class="content-area">
+            <div id="error-message" class="error-message"></div>
+            <div id="loading" class="loading">Loading repository...</div>
+            
+            <section id="overview" class="section active">
+                <div class="section-header">
+                    <h2>Repository Overview</h2>
+                </div>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="commitCount">0</div>
+                        <div class="stat-label">Total Commits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="branchCount">0</div>
+                        <div class="stat-label">Branches</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="fileCount">0</div>
+                        <div class="stat-label">Files</div>
+                    </div>
+                </div>
+                <div class="action-bar">
+                    <button class="action-btn primary-btn" onclick="sync()">
+                        <span>Sync Repository</span>
+                    </button>
+                    <button class="action-btn secondary-btn" onclick="download()">
+                        <span>Download ZIP</span>
+                    </button>
+                </div>
+            </section>
+
+            <section id="files" class="section" style="display: none">
+                <!-- Files content will be loaded dynamically -->
+            </section>
+
+            <section id="commits" class="section" style="display: none">
+                <!-- Commits content will be loaded dynamically -->
+            </section>
+
+            <section id="branches" class="section" style="display: none">
+                <!-- Branches content will be loaded dynamically -->
+            </section>
+
+            <section id="graph" class="section" style="display: none">
+                <!-- Graph content will be loaded dynamically -->
+            </section>
+        </div>
+    </main>
+
+    <script type="module" src="js/repo.js"></script>
 </body>
 </html>

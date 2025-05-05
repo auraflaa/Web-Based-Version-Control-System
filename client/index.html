@@ -1,10 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="refresh" content="0; url=dashboard.html" />
-    <title>Redirecting to Login</title>
+    <meta charset="UTF-8">
+    <title>Git GUI - Loading...</title>
+    <style>
+        body {
+            background: #181818;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', monospace, Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .loading {
+            text-align: center;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is logged in
+            const userId = localStorage.getItem('userId');
+            const userName = localStorage.getItem('userName');
+            
+            // Redirect based on auth status
+            if (userId && userName) {
+                window.location.href = 'repos.html';
+            } else {
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
 </head>
 <body>
-    <p>Redirecting to <a href="dashboard.html">login page</a>...</p>
+    <div class="loading">
+        <p>Initializing Git GUI...</p>
+    </div>
 </body>
 </html>

@@ -1,0 +1,342 @@
+2025-05-04 22:58:46 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-04 22:58:46 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-04 22:58:46 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-04 22:58:46 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-04 22:58:46 - app.main - INFO - Found repository directories: {'37', '38', '35', '1', '39', '34', '36', '33'}
+2025-05-04 22:58:46 - app.main - INFO - Found orphaned repositories to clean: {'37', '38', '35', '39', '34', '36', '33'}
+2025-05-04 22:58:46 - app.main - INFO - Attempting to clean up orphaned repository directory: 37
+2025-05-04 22:58:46 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\37
+2025-05-04 22:58:46 - app.main - INFO - Successfully cleaned up repository 37
+2025-05-04 22:58:46 - app.main - INFO - Attempting to clean up orphaned repository directory: 38
+2025-05-04 22:58:46 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\38
+2025-05-04 22:58:46 - app.main - INFO - Successfully cleaned up repository 38
+2025-05-04 22:58:46 - app.main - INFO - Attempting to clean up orphaned repository directory: 35
+2025-05-04 22:58:46 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\35
+2025-05-04 22:58:46 - app.main - INFO - Successfully cleaned up repository 35
+2025-05-04 22:58:46 - app.main - INFO - Attempting to clean up orphaned repository directory: 39
+2025-05-04 22:58:46 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\39
+2025-05-04 22:58:46 - app.main - INFO - Successfully cleaned up repository 39
+2025-05-04 22:58:46 - app.main - INFO - Attempting to clean up orphaned repository directory: 34
+2025-05-04 22:58:46 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\34
+2025-05-04 22:58:46 - app.main - INFO - Successfully cleaned up repository 34
+2025-05-04 22:58:46 - app.main - INFO - Attempting to clean up orphaned repository directory: 36
+2025-05-04 22:58:46 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\36
+2025-05-04 22:58:46 - app.main - INFO - Successfully cleaned up repository 36
+2025-05-04 22:58:46 - app.main - INFO - Attempting to clean up orphaned repository directory: 33
+2025-05-04 22:58:46 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\33
+2025-05-04 22:58:46 - app.main - INFO - Successfully cleaned up repository 33
+2025-05-04 22:58:46 - app.main - INFO - Repository cleanup completed
+2025-05-04 23:27:49 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-04 23:27:49 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-04 23:27:49 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-04 23:27:49 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-04 23:27:49 - app.main - INFO - Found repository directories: {'40', '1'}
+2025-05-04 23:27:49 - app.main - INFO - Found orphaned repositories to clean: {'40'}
+2025-05-04 23:27:49 - app.main - INFO - Attempting to clean up orphaned repository directory: 40
+2025-05-04 23:27:49 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\40
+2025-05-04 23:27:49 - app.main - INFO - Successfully cleaned up repository 40
+2025-05-04 23:27:49 - app.main - INFO - Repository cleanup completed
+2025-05-05 08:11:23 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 08:11:23 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 08:11:24 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 08:11:24 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-05 08:11:24 - app.main - INFO - Found repository directories: {'41', '1'}
+2025-05-05 08:11:24 - app.main - INFO - Found orphaned repositories to clean: {'41'}
+2025-05-05 08:11:24 - app.main - INFO - Attempting to clean up orphaned repository directory: 41
+2025-05-05 08:11:24 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\41
+2025-05-05 08:11:24 - app.main - INFO - Successfully cleaned up repository 41
+2025-05-05 08:11:24 - app.main - INFO - Repository cleanup completed
+2025-05-05 08:16:26 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 08:16:26 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 08:16:26 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 08:16:26 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-05 08:16:26 - app.main - INFO - Found repository directories: {'42', '43', '1'}
+2025-05-05 08:16:26 - app.main - INFO - Found orphaned repositories to clean: {'42', '43'}
+2025-05-05 08:16:26 - app.main - INFO - Attempting to clean up orphaned repository directory: 42
+2025-05-05 08:16:26 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\42
+2025-05-05 08:16:26 - app.main - INFO - Successfully cleaned up repository 42
+2025-05-05 08:16:26 - app.main - INFO - Attempting to clean up orphaned repository directory: 43
+2025-05-05 08:16:26 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\43
+2025-05-05 08:16:26 - app.main - INFO - Successfully cleaned up repository 43
+2025-05-05 08:16:26 - app.main - INFO - Repository cleanup completed
+2025-05-05 08:23:24 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 08:23:24 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 08:23:24 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 08:23:24 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-05 08:23:24 - app.main - INFO - Found repository directories: {'1', '44'}
+2025-05-05 08:23:24 - app.main - INFO - Found orphaned repositories to clean: {'44'}
+2025-05-05 08:23:24 - app.main - INFO - Attempting to clean up orphaned repository directory: 44
+2025-05-05 08:23:24 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\44
+2025-05-05 08:23:24 - app.main - INFO - Successfully cleaned up repository 44
+2025-05-05 08:23:24 - app.main - INFO - Repository cleanup completed
+2025-05-05 08:23:41 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\45
+2025-05-05 08:52:53 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 08:52:53 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 08:52:53 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 08:52:53 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-05 08:52:53 - app.main - INFO - Found repository directories: {'1'}
+2025-05-05 08:52:53 - app.main - INFO - Repository cleanup completed
+2025-05-05 09:17:58 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\50
+2025-05-05 09:17:58 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\48
+2025-05-05 09:17:58 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\53
+2025-05-05 09:17:58 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\46
+2025-05-05 09:17:58 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\47
+2025-05-05 09:17:58 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\51
+2025-05-05 09:17:58 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\52
+2025-05-05 09:17:58 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\49
+2025-05-05 09:18:02 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 09:18:02 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:18:02 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:18:02 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-05 09:18:02 - app.main - INFO - Found repository directories: {'1'}
+2025-05-05 09:18:02 - app.main - INFO - Cleaning up invalid repository 1
+2025-05-05 09:18:02 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\1
+2025-05-05 09:18:02 - app.main - ERROR - Failed to remove repository 1 from database: (pymysql.err.OperationalError) (1054, "Unknown column 'branches.repository_id' in 'where clause'")
+[SQL: DELETE FROM branches WHERE branches.repository_id = %(repository_id_1)s]
+[parameters: {'repository_id_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-05 09:18:02 - app.main - INFO - Repository cleanup completed
+2025-05-05 09:18:38 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\54
+2025-05-05 09:18:38 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\57
+2025-05-05 09:18:38 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\56
+2025-05-05 09:18:38 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\55
+2025-05-05 09:23:47 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 09:23:47 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:23:47 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:23:47 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-05 09:23:47 - app.main - INFO - Found repository directories: {'1'}
+2025-05-05 09:23:47 - app.main - INFO - Repository cleanup completed
+2025-05-05 09:43:11 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 09:43:11 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:43:11 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:43:11 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-05 09:43:11 - app.main - INFO - Found repository directories: {'1'}
+2025-05-05 09:43:11 - app.main - INFO - Repository cleanup completed
+2025-05-05 09:43:11 - app.main - INFO - Initializing database tables...
+2025-05-05 09:43:11 - app.main - INFO - Database initialization complete
+2025-05-05 09:43:11 - app.main - INFO - Starting Flask development server...
+2025-05-05 09:43:12 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 09:43:12 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:43:12 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:43:12 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-05 09:43:12 - app.main - INFO - Found repository directories: {'1'}
+2025-05-05 09:43:12 - app.main - INFO - Repository cleanup completed
+2025-05-05 09:43:12 - app.main - INFO - Initializing database tables...
+2025-05-05 09:43:12 - app.main - INFO - Database initialization complete
+2025-05-05 09:43:12 - app.main - INFO - Starting Flask development server...
+2025-05-05 09:45:13 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 09:45:13 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:45:13 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:45:14 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-05 09:45:14 - app.main - INFO - Found repository directories: {'1', '59', '60', '58', '61'}
+2025-05-05 09:45:14 - app.main - INFO - Found orphaned repositories to clean: {'61', '59', '60', '58'}
+2025-05-05 09:45:14 - app.main - INFO - Attempting to clean up orphaned repository directory: 61
+2025-05-05 09:45:14 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\61
+2025-05-05 09:45:14 - app.main - INFO - Successfully cleaned up repository 61
+2025-05-05 09:45:14 - app.main - INFO - Attempting to clean up orphaned repository directory: 59
+2025-05-05 09:45:14 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\59
+2025-05-05 09:45:14 - app.main - INFO - Successfully cleaned up repository 59
+2025-05-05 09:45:14 - app.main - INFO - Attempting to clean up orphaned repository directory: 60
+2025-05-05 09:45:14 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\60
+2025-05-05 09:45:14 - app.main - INFO - Successfully cleaned up repository 60
+2025-05-05 09:45:14 - app.main - INFO - Attempting to clean up orphaned repository directory: 58
+2025-05-05 09:45:14 - app.main - INFO - Successfully removed directory: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos\58
+2025-05-05 09:45:14 - app.main - INFO - Successfully cleaned up repository 58
+2025-05-05 09:45:14 - app.main - INFO - Repository cleanup completed
+2025-05-05 09:45:14 - app.main - INFO - Initializing database tables...
+2025-05-05 09:45:14 - app.main - INFO - Database initialization complete
+2025-05-05 09:45:14 - app.main - INFO - Starting Flask development server...
+2025-05-05 09:46:46 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 09:46:46 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:46:46 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:46:46 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-05 09:46:46 - app.main - INFO - Found repository directories: {'1'}
+2025-05-05 09:46:46 - app.main - INFO - Repository cleanup completed
+2025-05-05 09:46:46 - app.main - INFO - Initializing database tables...
+2025-05-05 09:46:46 - app.main - INFO - Database initialization complete
+2025-05-05 09:46:46 - app.main - INFO - Starting Flask development server...
+2025-05-05 09:46:51 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 09:46:51 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:46:51 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:46:51 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-05 09:46:51 - app.main - INFO - Found repository directories: {'1'}
+2025-05-05 09:46:51 - app.main - INFO - Repository cleanup completed
+2025-05-05 09:46:51 - app.main - INFO - Initializing database tables...
+2025-05-05 09:46:51 - app.main - INFO - Database initialization complete
+2025-05-05 09:46:51 - app.main - INFO - Starting Flask development server...
+2025-05-05 09:46:54 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 09:46:54 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:46:54 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:46:54 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-05 09:46:54 - app.main - INFO - Found repository directories: {'1'}
+2025-05-05 09:46:54 - app.main - INFO - Repository cleanup completed
+2025-05-05 09:46:54 - app.main - INFO - Initializing database tables...
+2025-05-05 09:46:54 - app.main - INFO - Database initialization complete
+2025-05-05 09:46:54 - app.main - INFO - Starting Flask development server...
+2025-05-05 09:47:41 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 09:47:41 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:47:41 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:47:41 - app.main - INFO - Found repositories in database: {'1'}
+2025-05-05 09:47:41 - app.main - INFO - Found repository directories: {'1'}
+2025-05-05 09:47:41 - app.main - INFO - Repository cleanup completed
+2025-05-05 09:50:54 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 09:50:54 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:50:54 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:50:54 - app.main - INFO - Found repositories in database: {'62', '65', '63', '64', '1'}
+2025-05-05 09:50:54 - app.main - INFO - Found repository directories: {'62', '65', '63', '64', '1'}
+2025-05-05 09:50:54 - app.main - INFO - Repository cleanup completed
+2025-05-05 09:50:54 - app.main - INFO - Initializing database tables...
+2025-05-05 09:50:54 - app.main - INFO - Database initialization complete
+2025-05-05 09:50:54 - app.main - INFO - Starting Flask development server...
+2025-05-05 09:55:14 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 09:55:14 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:55:14 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:55:14 - app.main - INFO - Found repositories in database: {'63', '65', '62', '1', '64'}
+2025-05-05 09:55:14 - app.main - INFO - Found repository directories: {'63', '65', '62', '1', '64'}
+2025-05-05 09:55:14 - app.main - INFO - Repository cleanup completed
+2025-05-05 09:59:00 - app.main - INFO - Initializing app with database URI: mysql+pymysql://root:Pritam@127.0.0.1:3306/codehub
+2025-05-05 09:59:00 - app.main - INFO - Repository base path: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:59:01 - app.main - INFO - Starting repository cleanup in: C:\Users\priya\OneDrive\Documents\Visual Studio 2022\Projects\Web Based Version Control System\server\repos
+2025-05-05 09:59:01 - app.main - INFO - Found repositories in database: {'62', '1', '65', '64', '63'}
+2025-05-05 09:59:01 - app.main - INFO - Found repository directories: {'62', '1', '65', '64', '63'}
+2025-05-05 09:59:01 - app.main - INFO - Repository cleanup completed
+2025-05-05 09:59:01 - app.main - INFO - Initializing database tables...
+2025-05-05 09:59:01 - app.main - INFO - Database initialization complete
+2025-05-05 09:59:01 - app.main - INFO - Starting Flask development server...
+{"asctime": "2025-05-05 13:21:53,654", "name": "main", "levelname": "ERROR", "message": "Failed to import config: cannot import name 'get_config' from 'configs' (C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\server\\configs.py)"}
+{"asctime": "2025-05-05 17:21:44,573", "name": "main", "levelname": "ERROR", "message": "Failed to import config: cannot import name 'get_config' from 'configs' (C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\server\\configs.py)"}
+{"asctime": "2025-05-05 18:24:27,800", "name": "main", "levelname": "INFO", "message": "Starting repository cleanup in: C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\repos"}
+{"asctime": "2025-05-05 18:24:28,020", "name": "main", "levelname": "INFO", "message": "Found repositories in database: {'63', '64', '1', '62', '65'}"}
+{"asctime": "2025-05-05 18:24:28,021", "name": "main", "levelname": "INFO", "message": "Found repository directories: set()"}
+{"asctime": "2025-05-05 18:24:28,022", "name": "main", "levelname": "INFO", "message": "Found missing repositories to create: {'1', '63', '64', '62', '65'}"}
+{"asctime": "2025-05-05 18:24:28,024", "name": "main", "levelname": "ERROR", "message": "Error during repository cleanup: Failed to clean up invalid repository 1", "exc_info": "Traceback (most recent call last):\n  File \"C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\server\\app.py\", line 159, in cleanup_repositories\n    repo_manager.create_repository(int(repo_id))\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^\n  File \"C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\server\\vcs.py\", line 57, in create_repository\n    raise VCSError(f\"Failed to clean up invalid repository {repo_id}\")\nvcs.VCSError: Failed to clean up invalid repository 1"}
+{"asctime": "2025-05-05 18:24:28,038", "name": "werkzeug", "levelname": "INFO", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000"}
+{"asctime": "2025-05-05 18:24:28,039", "name": "werkzeug", "levelname": "INFO", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m"}
+{"asctime": "2025-05-05 18:24:30,487", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:24:30] \"\u001b[33mGET / HTTP/1.1\u001b[0m\" 404 -"}
+{"asctime": "2025-05-05 18:24:30,649", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:24:30] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -"}
+{"asctime": "2025-05-05 18:32:04,062", "name": "main", "levelname": "INFO", "message": "Starting repository cleanup in: C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\repos"}
+{"asctime": "2025-05-05 18:32:04,181", "name": "main", "levelname": "INFO", "message": "Found repositories in database: {'64', '1', '62', '65', '63'}"}
+{"asctime": "2025-05-05 18:32:04,182", "name": "main", "levelname": "INFO", "message": "Found repository directories: set()"}
+{"asctime": "2025-05-05 18:32:04,183", "name": "main", "levelname": "INFO", "message": "Found missing repositories to create: {'64', '63', '65', '1', '62'}"}
+{"asctime": "2025-05-05 18:32:04,188", "name": "main", "levelname": "INFO", "message": "Repository cleanup completed"}
+{"asctime": "2025-05-05 18:32:04,202", "name": "werkzeug", "levelname": "INFO", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000"}
+{"asctime": "2025-05-05 18:32:04,203", "name": "werkzeug", "levelname": "INFO", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m"}
+{"asctime": "2025-05-05 18:32:06,527", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:32:06] \"\u001b[33mGET / HTTP/1.1\u001b[0m\" 404 -"}
+{"asctime": "2025-05-05 18:32:06,795", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:32:06] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -"}
+{"asctime": "2025-05-05 18:36:33,513", "name": "main", "levelname": "INFO", "message": "Starting repository cleanup in: C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\repos"}
+{"asctime": "2025-05-05 18:36:33,536", "name": "main", "levelname": "INFO", "message": "Found repositories in database: {'62', '63', '1', '64', '65'}"}
+{"asctime": "2025-05-05 18:36:33,538", "name": "main", "levelname": "INFO", "message": "Found repository directories: set()"}
+{"asctime": "2025-05-05 18:36:33,538", "name": "main", "levelname": "INFO", "message": "Found missing repositories to create: {'65', '62', '63', '1', '64'}"}
+{"asctime": "2025-05-05 18:36:33,543", "name": "main", "levelname": "INFO", "message": "Repository cleanup completed"}
+{"asctime": "2025-05-05 18:36:33,594", "name": "werkzeug", "levelname": "INFO", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000"}
+{"asctime": "2025-05-05 18:36:33,594", "name": "werkzeug", "levelname": "INFO", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m"}
+{"asctime": "2025-05-05 18:36:33,597", "name": "werkzeug", "levelname": "INFO", "message": " * Restarting with stat"}
+{"asctime": "2025-05-05 18:36:34,469", "name": "main", "levelname": "INFO", "message": "Starting repository cleanup in: C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\repos"}
+{"asctime": "2025-05-05 18:36:34,482", "name": "main", "levelname": "INFO", "message": "Found repositories in database: {'63', '65', '1', '62', '64'}"}
+{"asctime": "2025-05-05 18:36:34,483", "name": "main", "levelname": "INFO", "message": "Found repository directories: set()"}
+{"asctime": "2025-05-05 18:36:34,483", "name": "main", "levelname": "INFO", "message": "Found missing repositories to create: {'63', '1', '62', '65', '64'}"}
+{"asctime": "2025-05-05 18:36:34,486", "name": "main", "levelname": "INFO", "message": "Repository cleanup completed"}
+{"asctime": "2025-05-05 18:36:34,505", "name": "werkzeug", "levelname": "WARNING", "message": " * Debugger is active!"}
+{"asctime": "2025-05-05 18:36:34,510", "name": "werkzeug", "levelname": "INFO", "message": " * Debugger PIN: 161-153-568"}
+{"asctime": "2025-05-05 18:36:39,223", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:39] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-05-05 18:36:39,342", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:39] \"\u001b[36mGET /dashboard.html HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:36:39,365", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:39] \"\u001b[36mGET /styles.css HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:36:39,368", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:39] \"\u001b[36mGET /js/api.js HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:36:39,370", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:39] \"\u001b[36mGET /js/dashboard.js HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:36:39,425", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:39] \"GET /repos.html HTTP/1.1\" 200 -"}
+{"asctime": "2025-05-05 18:36:39,441", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:39] \"\u001b[36mGET /js/api.js HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:36:39,442", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:39] \"\u001b[36mGET /styles.css HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:36:39,454", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:39] \"\u001b[31m\u001b[1mPOST /api/repos/sync HTTP/1.1\u001b[0m\" 405 -"}
+{"asctime": "2025-05-05 18:36:39,496", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:39] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -"}
+{"asctime": "2025-05-05 18:36:40,468", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:40] \"\u001b[31m\u001b[1mPOST /api/repos/sync HTTP/1.1\u001b[0m\" 405 -"}
+{"asctime": "2025-05-05 18:36:41,475", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:41] \"\u001b[31m\u001b[1mPOST /api/repos/sync HTTP/1.1\u001b[0m\" 405 -"}
+{"asctime": "2025-05-05 18:36:42,489", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:42] \"\u001b[31m\u001b[1mPOST /api/repos/sync HTTP/1.1\u001b[0m\" 405 -"}
+{"asctime": "2025-05-05 18:36:42,496", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:42] \"\u001b[33mGET /api/repos?user_id=1 HTTP/1.1\u001b[0m\" 404 -"}
+{"asctime": "2025-05-05 18:36:42,532", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:42] \"\u001b[31m\u001b[1mPOST /api/repos HTTP/1.1\u001b[0m\" 405 -"}
+{"asctime": "2025-05-05 18:36:43,506", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:43] \"\u001b[33mGET /api/repos?user_id=1 HTTP/1.1\u001b[0m\" 404 -"}
+{"asctime": "2025-05-05 18:36:43,539", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:43] \"\u001b[31m\u001b[1mPOST /api/repos HTTP/1.1\u001b[0m\" 405 -"}
+{"asctime": "2025-05-05 18:36:44,513", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:44] \"\u001b[33mGET /api/repos?user_id=1 HTTP/1.1\u001b[0m\" 404 -"}
+{"asctime": "2025-05-05 18:36:44,545", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:44] \"\u001b[31m\u001b[1mPOST /api/repos HTTP/1.1\u001b[0m\" 405 -"}
+{"asctime": "2025-05-05 18:36:45,525", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:45] \"\u001b[33mGET /api/repos?user_id=1 HTTP/1.1\u001b[0m\" 404 -"}
+{"asctime": "2025-05-05 18:36:45,555", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:45] \"\u001b[31m\u001b[1mPOST /api/repos HTTP/1.1\u001b[0m\" 405 -"}
+{"asctime": "2025-05-05 18:36:48,028", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:48] \"\u001b[31m\u001b[1mPOST /api/repos HTTP/1.1\u001b[0m\" 405 -"}
+{"asctime": "2025-05-05 18:36:49,038", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:49] \"\u001b[31m\u001b[1mPOST /api/repos HTTP/1.1\u001b[0m\" 405 -"}
+{"asctime": "2025-05-05 18:36:49,833", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:49] \"\u001b[36mGET /dashboard.html HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:36:49,848", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:49] \"\u001b[36mGET /styles.css HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:36:49,848", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:49] \"\u001b[36mGET /js/api.js HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:36:49,852", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:49] \"\u001b[36mGET /js/dashboard.js HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:36:51,048", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:51] \"\u001b[31m\u001b[1mPOST /api/login HTTP/1.1\u001b[0m\" 405 -"}
+{"asctime": "2025-05-05 18:36:51,946", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:51] \"\u001b[31m\u001b[1mPOST /api/login HTTP/1.1\u001b[0m\" 405 -"}
+{"asctime": "2025-05-05 18:36:52,137", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:36:52] \"\u001b[31m\u001b[1mPOST /api/login HTTP/1.1\u001b[0m\" 405 -"}
+{"asctime": "2025-05-05 18:50:45,379", "name": "main", "levelname": "INFO", "message": "Starting repository cleanup in: C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\repos"}
+{"asctime": "2025-05-05 18:50:45,398", "name": "main", "levelname": "INFO", "message": "Found repositories in database: {'63', '65', '62', '1', '64'}"}
+{"asctime": "2025-05-05 18:50:45,399", "name": "main", "levelname": "INFO", "message": "Found repository directories: set()"}
+{"asctime": "2025-05-05 18:50:45,399", "name": "main", "levelname": "INFO", "message": "Found missing repositories to create: {'63', '65', '62', '1', '64'}"}
+{"asctime": "2025-05-05 18:50:45,402", "name": "main", "levelname": "INFO", "message": "Repository cleanup completed"}
+{"asctime": "2025-05-05 18:50:45,424", "name": "werkzeug", "levelname": "INFO", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000"}
+{"asctime": "2025-05-05 18:50:45,424", "name": "werkzeug", "levelname": "INFO", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m"}
+{"asctime": "2025-05-05 18:50:45,425", "name": "werkzeug", "levelname": "INFO", "message": " * Restarting with stat"}
+{"asctime": "2025-05-05 18:50:46,234", "name": "main", "levelname": "INFO", "message": "Starting repository cleanup in: C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\repos"}
+{"asctime": "2025-05-05 18:50:46,252", "name": "main", "levelname": "INFO", "message": "Found repositories in database: {'1', '62', '65', '64', '63'}"}
+{"asctime": "2025-05-05 18:50:46,253", "name": "main", "levelname": "INFO", "message": "Found repository directories: set()"}
+{"asctime": "2025-05-05 18:50:46,253", "name": "main", "levelname": "INFO", "message": "Found missing repositories to create: {'1', '65', '64', '63', '62'}"}
+{"asctime": "2025-05-05 18:50:46,258", "name": "main", "levelname": "INFO", "message": "Repository cleanup completed"}
+{"asctime": "2025-05-05 18:50:46,277", "name": "werkzeug", "levelname": "WARNING", "message": " * Debugger is active!"}
+{"asctime": "2025-05-05 18:50:46,281", "name": "werkzeug", "levelname": "INFO", "message": " * Debugger PIN: 161-153-568"}
+{"asctime": "2025-05-05 18:52:02,167", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:52:02] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-05-05 18:52:02,283", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:52:02] \"GET /dashboard.html HTTP/1.1\" 200 -"}
+{"asctime": "2025-05-05 18:52:02,315", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:52:02] \"\u001b[36mGET /styles.css HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:52:02,325", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:52:02] \"GET /js/api.js HTTP/1.1\" 200 -"}
+{"asctime": "2025-05-05 18:52:02,341", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:52:02] \"GET /js/dashboard.js HTTP/1.1\" 200 -"}
+{"asctime": "2025-05-05 18:52:02,405", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:52:02] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -"}
+{"asctime": "2025-05-05 18:52:03,691", "name": "utils", "levelname": "WARNING", "message": "API Error: Invalid credentials"}
+{"asctime": "2025-05-05 18:52:03,694", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:52:03] \"\u001b[31m\u001b[1mPOST /api/login HTTP/1.1\u001b[0m\" 401 -"}
+{"asctime": "2025-05-05 18:52:05,867", "name": "utils", "levelname": "WARNING", "message": "API Error: Invalid credentials"}
+{"asctime": "2025-05-05 18:52:05,870", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:52:05] \"\u001b[31m\u001b[1mPOST /api/login HTTP/1.1\u001b[0m\" 401 -"}
+{"asctime": "2025-05-05 18:52:11,816", "name": "utils", "levelname": "WARNING", "message": "API Error: Invalid credentials"}
+{"asctime": "2025-05-05 18:52:11,820", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:52:11] \"\u001b[31m\u001b[1mPOST /api/login HTTP/1.1\u001b[0m\" 401 -"}
+{"asctime": "2025-05-05 18:52:13,494", "name": "utils", "levelname": "WARNING", "message": "API Error: Invalid credentials"}
+{"asctime": "2025-05-05 18:52:13,496", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:52:13] \"\u001b[31m\u001b[1mPOST /api/login HTTP/1.1\u001b[0m\" 401 -"}
+{"asctime": "2025-05-05 18:53:09,116", "name": "utils", "levelname": "WARNING", "message": "API Error: Invalid credentials"}
+{"asctime": "2025-05-05 18:53:09,118", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:09] \"\u001b[31m\u001b[1mPOST /api/login HTTP/1.1\u001b[0m\" 401 -"}
+{"asctime": "2025-05-05 18:53:09,312", "name": "utils", "levelname": "WARNING", "message": "API Error: Invalid credentials"}
+{"asctime": "2025-05-05 18:53:09,313", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:09] \"\u001b[31m\u001b[1mPOST /api/login HTTP/1.1\u001b[0m\" 401 -"}
+{"asctime": "2025-05-05 18:53:39,709", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:39] \"\u001b[35m\u001b[1mPOST /api/register HTTP/1.1\u001b[0m\" 201 -"}
+{"asctime": "2025-05-05 18:53:39,731", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:39] \"\u001b[36mGET /repos.html HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:53:39,742", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:39] \"\u001b[36mGET /styles.css HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:53:39,743", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:39] \"\u001b[36mGET /js/api.js HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:53:44,638", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:44] \"\u001b[36mGET /repos.html HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:53:44,657", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:44] \"\u001b[36mGET /styles.css HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:53:44,658", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:44] \"\u001b[36mGET /js/api.js HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:53:45,372", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:45] \"\u001b[36mGET /repos.html HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:53:45,385", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:45] \"\u001b[36mGET /styles.css HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:53:45,388", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:45] \"\u001b[36mGET /js/api.js HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:53:45,531", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:45] \"\u001b[36mGET /repos.html HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:53:45,544", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:45] \"\u001b[36mGET /js/api.js HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:53:45,545", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:45] \"\u001b[36mGET /styles.css HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:53:55,148", "name": "utils", "levelname": "WARNING", "message": "API Error: Invalid credentials"}
+{"asctime": "2025-05-05 18:53:55,152", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:55] \"\u001b[31m\u001b[1mPOST /api/login HTTP/1.1\u001b[0m\" 401 -"}
+{"asctime": "2025-05-05 18:53:55,736", "name": "utils", "levelname": "WARNING", "message": "API Error: Invalid credentials"}
+{"asctime": "2025-05-05 18:53:55,741", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:55] \"\u001b[31m\u001b[1mPOST /api/login HTTP/1.1\u001b[0m\" 401 -"}
+{"asctime": "2025-05-05 18:53:55,909", "name": "utils", "levelname": "WARNING", "message": "API Error: Invalid credentials"}
+{"asctime": "2025-05-05 18:53:55,912", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:53:55] \"\u001b[31m\u001b[1mPOST /api/login HTTP/1.1\u001b[0m\" 401 -"}
+{"asctime": "2025-05-05 18:58:00,633", "name": "main", "levelname": "INFO", "message": "Starting repository cleanup in: C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\repos"}
+{"asctime": "2025-05-05 18:58:00,659", "name": "main", "levelname": "INFO", "message": "Found repositories in database: {'62', '1', '65', '64', '63'}"}
+{"asctime": "2025-05-05 18:58:00,661", "name": "main", "levelname": "INFO", "message": "Found repository directories: set()"}
+{"asctime": "2025-05-05 18:58:00,662", "name": "main", "levelname": "INFO", "message": "Found missing repositories to create: {'65', '64', '1', '62', '63'}"}
+{"asctime": "2025-05-05 18:58:00,668", "name": "main", "levelname": "INFO", "message": "Repository cleanup completed"}
+{"asctime": "2025-05-05 18:58:00,693", "name": "werkzeug", "levelname": "INFO", "message": "\u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m\n * Running on http://127.0.0.1:5000"}
+{"asctime": "2025-05-05 18:58:00,694", "name": "werkzeug", "levelname": "INFO", "message": "\u001b[33mPress CTRL+C to quit\u001b[0m"}
+{"asctime": "2025-05-05 18:58:00,696", "name": "werkzeug", "levelname": "INFO", "message": " * Restarting with stat"}
+{"asctime": "2025-05-05 18:58:01,618", "name": "main", "levelname": "INFO", "message": "Starting repository cleanup in: C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\repos"}
+{"asctime": "2025-05-05 18:58:01,631", "name": "main", "levelname": "INFO", "message": "Found repositories in database: {'63', '64', '65', '1', '62'}"}
+{"asctime": "2025-05-05 18:58:01,632", "name": "main", "levelname": "INFO", "message": "Found repository directories: set()"}
+{"asctime": "2025-05-05 18:58:01,632", "name": "main", "levelname": "INFO", "message": "Found missing repositories to create: {'63', '65', '1', '64', '62'}"}
+{"asctime": "2025-05-05 18:58:01,635", "name": "main", "levelname": "INFO", "message": "Repository cleanup completed"}
+{"asctime": "2025-05-05 18:58:01,649", "name": "werkzeug", "levelname": "WARNING", "message": " * Debugger is active!"}
+{"asctime": "2025-05-05 18:58:01,652", "name": "werkzeug", "levelname": "INFO", "message": " * Debugger PIN: 161-153-568"}
+{"asctime": "2025-05-05 18:58:04,397", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:58:04] \"GET / HTTP/1.1\" 200 -"}
+{"asctime": "2025-05-05 18:58:04,512", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:58:04] \"\u001b[36mGET /repos.html HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:58:04,531", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:58:04] \"\u001b[36mGET /styles.css HTTP/1.1\u001b[0m\" 304 -"}
+{"asctime": "2025-05-05 18:58:04,581", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:58:04] \"GET /js/api.js HTTP/1.1\" 200 -"}
+{"asctime": "2025-05-05 18:58:04,634", "name": "werkzeug", "levelname": "INFO", "message": "127.0.0.1 - - [05/May/2025 18:58:04] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -"}

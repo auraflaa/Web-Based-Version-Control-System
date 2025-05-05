@@ -3,6 +3,10 @@ import time
 import os
 import shutil
 from datetime import datetime
+from logger import get_logger
+
+# Setup logging
+logger = get_logger(__name__)
 
 class Commit:
     def __init__(self, message, files, parent=None):
@@ -36,15 +40,24 @@ class RepositoryManager:
             # Set directory permissions (readable/writable by the app)
             os.chmod(self.base_path, 0o755)
 
+    def cleanup_invalid_repository(self, repo_id):
+        """Clean up an invalid repository directory"""
+        repo_path = os.path.join(self.base_path, str(repo_id))
+        if os.path.exists(repo_path):
+            try:
+                shutil.rmtree(repo_path)
+                return True
+            except Exception:
+                return False
+        return True
+
     def create_repository(self, repo_id):
         """Create the physical repository structure"""
         repo_path = os.path.join(self.base_path, str(repo_id))
-        if os.path.exists(repo_path):
-            raise VCSError(f"Repository {repo_id} already exists")
-
+        
         try:
             # Create main repository directory
-            os.makedirs(repo_path)
+            os.makedirs(repo_path, exist_ok=True)
             
             # Create standard directory structure
             dirs = [
@@ -58,18 +71,43 @@ class RepositoryManager:
                 os.makedirs(dir_path, exist_ok=True)
 
             # Initialize repository files
-            with open(os.path.join(repo_path, 'HEAD'), 'w') as f:
-                f.write('ref: refs/heads/main\n')
+            head_path = os.path.join(repo_path, 'HEAD')
+            if not os.path.exists(head_path):
+                with open(head_path, 'w') as f:
+                    f.write('ref: refs/heads/main\n')
                 
-            with open(os.path.join(repo_path, 'config'), 'w') as f:
-                f.write('[core]\n\tbare = false\n')
+            config_path = os.path.join(repo_path, 'config')
+            if not os.path.exists(config_path):
+                with open(config_path, 'w') as f:
+                    f.write('[core]\n\tbare = false\n')
+            
+            # Verify structure is complete
+            if not self.validate_repository_structure(repo_path):
+                raise VCSError(f"Failed to create complete repository structure for {repo_id}")
 
             return True
+            
         except Exception as e:
-            # Clean up if creation fails
+            logger.error(f"Failed to create repository {repo_id}: {str(e)}")
+            # Try to clean up if creation fails
             if os.path.exists(repo_path):
-                shutil.rmtree(repo_path)
-            raise VCSError(f"Failed to create repository: {str(e)}")
+                try:
+                    shutil.rmtree(repo_path)
+                except Exception as cleanup_error:
+                    logger.error(f"Failed to clean up repository directory after creation failure: {cleanup_error}")
+            raise VCSError(f"Failed to create repository {repo_id}: {str(e)}")
+
+    def validate_repository_structure(self, repo_path):
+        """Validate that a repository has all required directories and files"""
+        required_paths = [
+            os.path.join(repo_path, 'files'),
+            os.path.join(repo_path, 'objects'),
+            os.path.join(repo_path, 'refs', 'heads'),
+            os.path.join(repo_path, 'refs', 'tags'),
+            os.path.join(repo_path, 'HEAD'),
+            os.path.join(repo_path, 'config')
+        ]
+        return all(os.path.exists(path) for path in required_paths)
 
     def delete_repository(self, repo_id):
         """Delete a repository's physical structure"""

@@ -85,6 +85,3 @@ CREATE TABLE staging_area (
     FOREIGN KEY (repo_id) REFERENCES repositories(id)
 );
 
--- Update already inputted values with demo passwords (plain text for demo, use hashes in production)
-UPDATE users SET password = 'alice123' WHERE email = 'alice@example.com';
-UPDATE users SET password = 'bob123' WHERE email = 'bob@example.com';
