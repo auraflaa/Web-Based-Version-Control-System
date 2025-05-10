@@ -1,5 +1,6 @@
 from flask import jsonify
 from werkzeug.http import HTTP_STATUS_CODES
+import traceback
 
 class APIError(Exception):
     """Base exception for API errors"""
@@ -79,6 +80,20 @@ def init_error_handlers(app):
             'error': 'Internal server error',
             'status': 'Internal Server Error'
         }), 500
+
+    @app.errorhandler(Exception)
+    def handle_unexpected_error(error):
+        """Handle unexpected errors"""
+        print('[DEBUG] Unhandled Exception:', error)
+        print(traceback.format_exc())
+        response = jsonify({
+            'success': False,
+            'error': str(error),
+            'traceback': traceback.format_exc(),
+            'status': 'Internal Server Error'
+        })
+        response.status_code = 500
+        return response
 
 def success_response(data=None, message=None, status_code=200):
     """Create a success response"""

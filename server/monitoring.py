@@ -2,8 +2,8 @@ from prometheus_client import Counter, Histogram, Gauge, start_http_server
 import psutil
 import threading
 import time
-from logger import get_logger
-from redis_client import redis_client
+from .logger import get_logger
+from .redis_client import redis_client
 
 logger = get_logger(__name__)
 

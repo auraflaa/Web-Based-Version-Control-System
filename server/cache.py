@@ -1,8 +1,8 @@
 import json
 from functools import wraps
 import hashlib
-from logger import get_logger
-from redis_client import redis_client
+from .logger import get_logger
+from .redis_client import redis_client
 
 logger = get_logger(__name__)
 

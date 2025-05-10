@@ -55,6 +55,9 @@ def setup_logging(config_path=None):
     else:
         setup_default_logging()
 
+def init_logging(config_path=None):
+    setup_logging(config_path)
+
 def setup_default_logging():
     """Setup basic default logging configuration"""
     logging.basicConfig(

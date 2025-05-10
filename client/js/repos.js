@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Display user name
     const userName = localStorage.getItem('userName');
-    document.getElementById('userName').textContent = userName;
+    document.getElementById('userName').textContent = (userName && userName !== 'undefined') ? userName : '';
     
     // Load repositories
     await loadRepositories();

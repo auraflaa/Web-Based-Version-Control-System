@@ -1,350 +1,542 @@
+from flask import Blueprint, request, jsonify, send_file
+from .models import db, User, Repository, Branch, Commit, File, CommitFiles, WorkingTree, StagingArea
+from .error import success_response, error_response, APIError
+from .utils import validate_params, error_handler, get_pagination_params, Pagination
+from .vcs import GitRepository
 import os
-import uuid
-import shutil
-import time
-from flask import Blueprint, request, jsonify, send_file, current_app
-from models import db, WorkingTree, StagingArea, File, User, Repository, Branch, Commit, CommitFiles
 from datetime import datetime
-from vcs import repo_manager, VCSError
-from utils import APIError, error_handler, validate_params, get_pagination_params, Pagination
-from cache import cache_response, cache_file_content, get_cached_file_content, invalidate_repo_cache
-from monitoring import http_requests_total, http_request_duration_seconds
-from logger import get_logger
-from werkzeug.security import generate_password_hash, check_password_hash
+import zipfile
+import io
+from functools import wraps
+import jwt
+from datetime import timedelta
+from .configs import SECRET_KEY
+import traceback
 
-api = Blueprint('api', __name__, url_prefix='/api')
-logger = get_logger(__name__)
+api = Blueprint('api', __name__)
 
-REPO_BASE = os.path.join(os.getcwd(), 'repos')
+def debug_log(msg):
+    print(f'[DEBUG ROUTES] {msg}')
 
-def get_repo_path(repo_id):
-    return os.path.join(REPO_BASE, str(repo_id), 'files')
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get('Authorization')
+        if not token:
+            return jsonify({'message': 'Token is missing'}), 401
+        try:
+            token = token.split()[1]  # Remove 'Bearer' prefix
+            data = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+            current_user = User.query.get(data['user_id'])
+        except jwt.ExpiredSignatureError:
+            return jsonify({'message': 'Token has expired'}), 401
+        except jwt.InvalidTokenError:
+            return jsonify({'message': 'Token is invalid'}), 401
+        except Exception as e:
+            return jsonify({'message': f'Authentication error: {str(e)}'}), 401
+        if not current_user:
+            return jsonify({'message': 'User not found'}), 404
+        return f(current_user, *args, **kwargs)
+    return decorated
 
-@api.before_request
-def before_request():
-    request.start_time = time.time()
-
-@api.after_request
-def after_request(response):
-    # Record request duration
-    if hasattr(request, 'start_time'):
-        duration = time.time() - request.start_time
-        http_request_duration_seconds.labels(
-            method=request.method,
-            endpoint=request.endpoint
-        ).observe(duration)
-    
-    # Record request metrics
-    http_requests_total.labels(
-        method=request.method,
-        endpoint=request.endpoint,
-        status=response.status_code
-    ).inc()
-    
-    return response
-
-@api.route('/register', methods=['POST'])
-@error_handler
+@api.route('/auth/register', methods=['POST'])
 def register():
+    data = request.get_json()
+    if User.query.filter_by(email=data['email']).first():
+        return jsonify({'message': 'Email already exists'}), 400
+    user = User(
+        name=data['name'],
+        email=data['email'],
+        password=data['password']
+    )
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({'message': 'User created successfully'}), 201
+
+@api.route('/auth/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    user = User.query.filter_by(email=data['email']).first()
+    if not user or user.password != data['password']:
+        return jsonify({'message': 'Invalid credentials'}), 401
+    token = jwt.encode({
+        'user_id': user.id,
+        'exp': datetime.utcnow() + timedelta(days=1)
+    }, SECRET_KEY, algorithm="HS256")
+    return jsonify({'token': token})
+
+@api.route('/api/register', methods=['POST'])
+@error_handler
+def api_register():
     data = request.get_json()
     name = data.get('name')
     email = data.get('email')
     password = data.get('password')
-    
-    if not all([name, email, password]):
-        raise APIError("Name, email and password are required")
-        
+    if not name or not email or not password:
+        raise APIError('Missing required fields', status_code=400)
     if User.query.filter_by(email=email).first():
-        raise APIError("Email already registered", 409)
-        
-    try:
-        user = User.register(name, email, password)
-        return jsonify({
-            'success': True,
-            'user_id': user.id,
-            'name': user.name
-        }), 201
-    except Exception as e:
-        logger.error(f"Registration failed: {e}")
-        db.session.rollback()
-        raise APIError("Registration failed", 500)
+        raise APIError('Email already exists', status_code=400)
+    user = User(name=name, email=email, password=password)
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({'success': True, 'data': {'user_id': user.id, 'name': user.name}}), 201
 
-@api.route('/login', methods=['POST'])
+@api.route('/api/login', methods=['POST'])
 @error_handler
-def login():
+def api_login():
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
-    
     if not email or not password:
-        raise APIError("Email and password are required")
-        
-    try:
-        user = User.authenticate(email=email, password=password)
-        if user:
-            return jsonify({
-                'success': True,
-                'user_id': user.id,
-                'name': user.name
-            })
-        
-        return jsonify({
-            'success': False,
-            'error': 'Invalid credentials'
-        }), 401
-    except Exception as e:
-        logger.error(f"Login failed: {e}")
-        raise APIError("Login failed", 500)
+        raise APIError('Missing email or password', status_code=400)
+    user = User.query.filter_by(email=email).first()
+    if not user or user.password != password:
+        raise APIError('Invalid credentials', status_code=401)
+    return jsonify({'success': True, 'data': {'user_id': user.id, 'name': user.name}})
 
 @api.route('/repos', methods=['GET'])
-@error_handler
-def list_repos():
-    user_id = request.args.get('user_id')
-    if not user_id:
-        raise APIError("User ID is required", 400)
-        
-    try:
-        query = Repository.query.filter_by(user_id=user_id).order_by(Repository.created_at.desc())
-        page, per_page = get_pagination_params()
-        pagination = Pagination(query, page, per_page)
-        
-        return jsonify({
-            'success': True,
-            'data': pagination.to_dict()
-        })
-    except Exception as e:
-        logger.error(f"Failed to list repositories: {e}")
-        raise APIError("Failed to list repositories", 500)
+@token_required
+def list_repos(current_user):
+    repos = Repository.query.filter_by(user_id=current_user.id).all()
+    return jsonify([repo.to_dict() for repo in repos])
 
 @api.route('/repos', methods=['POST'])
-@error_handler
-@validate_params('name', 'user_id')
-def create_repo():
+@token_required
+def create_repo(current_user):
+    import traceback
     data = request.get_json()
-    name = data['name'].strip()
-    user_id = data['user_id']
-    
+    name = data.get('name')
+    description = data.get('description', '')
     if not name:
-        raise APIError("Repository name cannot be empty", 400)
-        
-    if Repository.query.filter_by(name=name, user_id=user_id).first():
-        raise APIError("Repository with this name already exists", 409)
-        
+        print('[DEBUG] Missing repository name')
+        return jsonify({'success': False, 'error': 'Missing repository name'}), 400
+    # Prevent duplicate repo names for the same user
+    existing = Repository.query.filter_by(user_id=current_user.id, name=name).first()
+    if existing:
+        return jsonify({'success': False, 'error': 'Repository name already exists'}), 400
     try:
-        repo = Repository(name=name, user_id=user_id)
+        print(f'[DEBUG] Creating repo: name={name}, description={description}, user_id={current_user.id}')
+        repo = Repository(
+            name=name,
+            description=description,
+            user_id=current_user.id
+        )
         db.session.add(repo)
         db.session.commit()
-        
-        # Initialize repository directory
-        repo_manager.create_repository(repo.id)
-        
-        return jsonify({
-            'success': True,
-            'id': repo.id,
-            'name': repo.name,
-            'created_at': repo.created_at.isoformat()
-        }), 201
+        print(f'[DEBUG] Repo created in DB with id={repo.id}')
+        repo_path = os.path.join('repos', str(repo.id))
+        GitRepository.init(repo_path)
+        print(f'[DEBUG] Repo folder initialized at {repo_path}')
+        return jsonify({'success': True, 'data': repo.to_dict()}), 201
     except Exception as e:
+        print('[ERROR] Exception during repo creation:', e)
+        print(traceback.format_exc())
         db.session.rollback()
-        logger.error(f"Failed to create repository: {e}")
-        raise APIError("Failed to create repository", 500)
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@api.route('/api/repos', methods=['GET'])
+def api_list_repos():
+    user_id = request.args.get('user_id')
+    if not user_id:
+        return jsonify({'success': False, 'error': 'Missing user_id'}), 400
+    repos = Repository.query.filter_by(user_id=user_id).all()
+    items = [repo.to_dict() for repo in repos]
+    return jsonify({'success': True, 'data': {'items': items}})
+
+@api.route('/api/repos', methods=['POST'])
+def api_create_repo():
+    import traceback
+    data = request.get_json()
+    name = data.get('name')
+    user_id = data.get('user_id')
+    description = data.get('description', '')
+    if not name or not user_id or str(user_id) == 'undefined' or not str(user_id).isdigit():
+        print(f'[DEBUG] Invalid user_id received: {user_id}')
+        return jsonify({'success': False, 'error': 'Missing or invalid name or user_id'}), 400
+    user_id = int(user_id)
+    try:
+        print(f'[DEBUG] Creating repo: name={name}, description={description}, user_id={user_id}')
+        repo = Repository(name=name, user_id=user_id, description=description)
+        db.session.add(repo)
+        db.session.commit()
+        print(f'[DEBUG] Repo created in DB with id={repo.id}')
+        repo_path = os.path.join('repos', str(repo.id))
+        GitRepository.init(repo_path)
+        print(f'[DEBUG] Repo folder initialized at {repo_path}')
+        return jsonify({'success': True, 'data': repo.to_dict()}), 201
+    except Exception as e:
+        print('[ERROR] Exception during repo creation:', e)
+        print(traceback.format_exc())
+        db.session.rollback()
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@api.route('/api/repos/<int:repo_id>', methods=['DELETE'])
+def api_delete_repo(repo_id):
+    repo = Repository.query.get_or_404(repo_id)
+    db.session.delete(repo)
+    db.session.commit()
+    repo_path = os.path.join('repos', str(repo.id))
+    if os.path.exists(repo_path):
+        import shutil
+        shutil.rmtree(repo_path)
+    return jsonify({'success': True})
 
 @api.route('/repos/<int:repo_id>', methods=['GET'])
-@error_handler
-@cache_response(expire_time=300)
-def get_repo(repo_id):
-    repository = Repository.query.get_or_404(repo_id)
-    return jsonify(repository.to_dict())
+@token_required
+def get_repo(current_user, repo_id):
+    print(f'[DEBUG] GET /repos/{repo_id} called by user_id={current_user.id}')
+    repo = Repository.query.get_or_404(repo_id)
+    print(f'[DEBUG] Repo found: id={repo.id}, user_id={repo.user_id}')
+    if repo.user_id != current_user.id:
+        print('[DEBUG] Unauthorized repo access')
+        return jsonify({'message': 'Unauthorized'}), 403
+    return jsonify(repo.to_dict())
 
-@api.route('/repos/<int:repo_id>/sync', methods=['POST'])
-@error_handler
-@validate_params('user_id')
-def sync_repo(repo_id):
-    data = request.get_json()
-    user_id = data['user_id']
-    
-    try:
-        repository = Repository.query.get_or_404(repo_id)
-        if int(user_id) != repository.user_id:
-            raise APIError("Unauthorized", 403)
-            
-        repo_path = os.path.join(current_app.config['REPO_BASE'], str(repo_id))
-        if not os.path.exists(repo_path):
-            repo_manager.create_repository(repo_id)
-                
-        return jsonify({
-            'success': True,
-            'message': f'Repository {repo_id} synchronized successfully'
-        })
-    except Exception as e:
-        logger.error(f"Repository sync failed: {str(e)}")
-        raise APIError(f"Failed to sync repository: {str(e)}", 500)
-
-@api.route('/repos/<int:repo_id>/branches', methods=['GET'])
-@error_handler
-@cache_response(expire_time=300)
-def list_branches(repo_id):
-    page, per_page = get_pagination_params()
-    query = Branch.query.filter_by(repository_id=repo_id)
-    pagination = Pagination(query, page, per_page)
-    return jsonify(pagination.to_dict())
-
-@api.route('/repos/<int:repo_id>/commits', methods=['GET'])
-@error_handler
-@cache_response(expire_time=300)
-def list_commits(repo_id):
-    page, per_page = get_pagination_params()
-    branch = request.args.get('branch', 'main')
-    
-    query = Commit.query.filter_by(
-        repository_id=repo_id,
-        branch=branch
-    ).order_by(Commit.timestamp.desc())
-    
-    pagination = Pagination(query, page, per_page)
-    return jsonify(pagination.to_dict())
+@api.route('/repos/<int:repo_id>', methods=['DELETE'])
+@token_required
+def delete_repo(current_user, repo_id):
+    print(f'[DEBUG] DELETE /repos/{repo_id} called by user_id={current_user.id}')
+    repo = Repository.query.get_or_404(repo_id)
+    print(f'[DEBUG] Repo found: id={repo.id}, user_id={repo.user_id}')
+    if repo.user_id != current_user.id:
+        print('[DEBUG] Unauthorized delete attempt')
+        return jsonify({'message': 'Unauthorized'}), 403
+    db.session.delete(repo)
+    db.session.commit()
+    repo_path = os.path.join('repos', str(repo.id))
+    if os.path.exists(repo_path):
+        import shutil
+        print(f'[DEBUG] Deleting repo folder: {repo_path}')
+        shutil.rmtree(repo_path)
+    print('[DEBUG] Repo deleted successfully')
+    return jsonify({'success': True})
 
 @api.route('/repos/<int:repo_id>/files', methods=['GET'])
-@error_handler
-@cache_response(expire_time=300)
-def list_files(repo_id):
-    path = request.args.get('path', '')
-    repository = Repository.query.get_or_404(repo_id)
-    
-    try:
-        files = repo_manager.list_files(repository.id, path)
-        return jsonify(files)
-    except Exception as e:
-        logger.error(f"Failed to list files: {e}")
-        raise APIError("Failed to list files", 500)
+@token_required
+def list_files(current_user, repo_id):
+    print(f'[DEBUG] GET /repos/{repo_id}/files called by user_id={current_user.id}')
+    repo = Repository.query.get_or_404(repo_id)
+    print(f'[DEBUG] Repo found: id={repo.id}, user_id={repo.user_id}')
+    if repo.user_id != current_user.id:
+        print('[DEBUG] Unauthorized file list access')
+        return jsonify({'message': 'Unauthorized'}), 403
+        
+    git_repo = GitRepository(os.path.join('repos', str(repo_id)))
+    files = git_repo.list_files()
+    print(f'[DEBUG] Files listed: {files}')
+    return jsonify(files)
 
 @api.route('/repos/<int:repo_id>/files', methods=['POST'])
-@error_handler
-@validate_params('path', 'content', 'message')
-def create_file(repo_id):
-    data = request.json
-    repository = Repository.query.get_or_404(repo_id)
-    
-    try:
-        file_size = len(data['content'].encode('utf-8'))
-        if file_size > current_app.config['MAX_FILE_SIZE']:
-            raise APIError("File size exceeds maximum limit")
-            
-        result = repo_manager.create_file(
-            repository.id,
-            data['path'],
-            data['content'],
-            data['message']
-        )
-        
-        # Invalidate cache for this repository
-        invalidate_repo_cache(repo_id)
-        
-        return jsonify(result), 201
-    except Exception as e:
-        logger.error(f"Failed to create file: {e}")
-        raise APIError("Failed to create file", 500)
+@token_required
+def create_file(current_user, repo_id):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+    data = request.get_json()
+    file_path = data.get('name')
+    content = data.get('content', '')
+    if not file_path:
+        return jsonify({'message': 'Missing file name'}), 400
+    git_repo = GitRepository(os.path.join('repos', str(repo_id)))
+    git_repo.write_file(file_path, content)
+    # Add to working tree (DB)
+    from .models import WorkingTree, File as DBFile
+    db_file = DBFile.query.filter_by(filename=file_path, repo_id=repo_id).first()
+    if not db_file:
+        db_file = DBFile(filename=file_path, repo_id=repo_id)
+        db.session.add(db_file)
+        db.session.commit()
+    # Add/Update working tree entry
+    wt = WorkingTree.query.filter_by(repository_id=repo_id, file_id=db_file.id).first()
+    if not wt:
+        wt = WorkingTree(repository_id=repo_id, file_id=db_file.id)
+        db.session.add(wt)
+    wt.status = 'added'
+    db.session.commit()
+    return jsonify({'message': 'File created'})
 
 @api.route('/repos/<int:repo_id>/files/<path:file_path>', methods=['GET'])
-@error_handler
-def get_file_content(repo_id, file_path):
-    repository = Repository.query.get_or_404(repo_id)
-    
-    # Try to get from cache first
-    cached_content = get_cached_file_content(repo_id, file_path)
-    if cached_content:
-        return jsonify({'content': cached_content})
-    
-    try:
-        content = repo_manager.get_file_content(repository.id, file_path)
+@token_required
+def get_file(current_user, repo_id, file_path):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
         
-        # Cache the content
-        cache_file_content(repo_id, file_path, content)
-        
-        return jsonify({'content': content})
-    except Exception as e:
-        logger.error(f"Failed to get file content: {e}")
-        raise APIError("Failed to get file content", 500)
+    git_repo = GitRepository(os.path.join('repos', str(repo_id)))
+    content = git_repo.get_file_content(file_path)
+    
+    if content is None:
+        return jsonify({'message': 'File not found'}), 404
+    return jsonify({'content': content})
 
 @api.route('/repos/<int:repo_id>/files/<path:file_path>', methods=['PUT'])
-@error_handler
-@validate_params('content', 'message')
-def update_file(repo_id, file_path):
-    data = request.json
-    repository = Repository.query.get_or_404(repo_id)
-    
-    try:
-        file_size = len(data['content'].encode('utf-8'))
-        if file_size > current_app.config['MAX_FILE_SIZE']:
-            raise APIError("File size exceeds maximum limit")
-            
-        result = repo_manager.update_file(
-            repository.id,
-            file_path,
-            data['content'],
-            data['message']
-        )
+@token_required
+def write_file(current_user, repo_id, file_path):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
         
-        # Invalidate cache for this repository
-        invalidate_repo_cache(repo_id)
-        
-        return jsonify(result)
-    except Exception as e:
-        logger.error(f"Failed to update file: {e}")
-        raise APIError("Failed to update file", 500)
+    data = request.get_json()
+    git_repo = GitRepository(os.path.join('repos', str(repo_id)))
+    git_repo.write_file(file_path, data['content'])
+    # Add to working tree (DB)
+    from .models import WorkingTree, File as DBFile
+    db_file = DBFile.query.filter_by(filename=file_path, repo_id=repo_id).first()
+    if not db_file:
+        db_file = DBFile(filename=file_path, repo_id=repo_id)
+        db.session.add(db_file)
+        db.session.commit()
+    # Add/Update working tree entry
+    wt = WorkingTree.query.filter_by(repository_id=repo_id, file_id=db_file.id).first()
+    if not wt:
+        wt = WorkingTree(repository_id=repo_id, file_id=db_file.id)
+        db.session.add(wt)
+    wt.status = 'modified'
+    db.session.commit()
+    return jsonify({'message': 'File updated'})
 
 @api.route('/repos/<int:repo_id>/files/<path:file_path>', methods=['DELETE'])
-@error_handler
-@validate_params('message')
-def delete_file(repo_id, file_path):
-    data = request.json
-    repository = Repository.query.get_or_404(repo_id)
+@token_required
+def delete_file(current_user, repo_id, file_path):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+        
+    git_repo = GitRepository(os.path.join('repos', str(repo_id)))
+    git_repo.delete_file(file_path)
     
+    return jsonify({'message': 'File deleted'})
+
+# --- API proxy endpoints for /api/repos/<int:repo_id>/files (for frontend compatibility) ---
+@api.route('/api/repos/<int:repo_id>/files', methods=['GET'])
+@token_required
+def api_list_files(current_user, repo_id):
+    debug_log(f'GET /api/repos/{repo_id}/files called by user_id={current_user.id}')
     try:
-        result = repo_manager.delete_file(
-            repository.id,
-            file_path,
-            data['message']
-        )
-        
-        # Invalidate cache for this repository
-        invalidate_repo_cache(repo_id)
-        
-        return jsonify(result)
+        return list_files(current_user, repo_id)
     except Exception as e:
-        logger.error(f"Failed to delete file: {e}")
-        raise APIError("Failed to delete file", 500)
+        debug_log(f'Exception in api_list_files: {e}\n{traceback.format_exc()}')
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@api.route('/api/repos/<int:repo_id>/files', methods=['POST'])
+@token_required
+def api_create_file(current_user, repo_id):
+    debug_log(f'POST /api/repos/{repo_id}/files called by user_id={current_user.id}')
+    try:
+        return create_file(current_user, repo_id)
+    except Exception as e:
+        debug_log(f'Exception in api_create_file: {e}\n{traceback.format_exc()}')
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@api.route('/api/repos/<int:repo_id>/files/<path:file_path>', methods=['GET'])
+@token_required
+def api_get_file(current_user, repo_id, file_path):
+    debug_log(f'GET /api/repos/{repo_id}/files/{file_path} called by user_id={current_user.id}')
+    try:
+        return get_file(current_user, repo_id, file_path)
+    except Exception as e:
+        debug_log(f'Exception in api_get_file: {e}\n{traceback.format_exc()}')
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@api.route('/api/repos/<int:repo_id>/files/<path:file_path>', methods=['PUT'])
+@token_required
+def api_write_file(current_user, repo_id, file_path):
+    debug_log(f'PUT /api/repos/{repo_id}/files/{file_path} called by user_id={current_user.id}')
+    try:
+        return write_file(current_user, repo_id, file_path)
+    except Exception as e:
+        debug_log(f'Exception in api_write_file: {e}\n{traceback.format_exc()}')
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@api.route('/api/repos/<int:repo_id>/files/<path:file_path>', methods=['DELETE'])
+@token_required
+def api_delete_file(current_user, repo_id, file_path):
+    debug_log(f'DELETE /api/repos/{repo_id}/files/{file_path} called by user_id={current_user.id}')
+    try:
+        return delete_file(current_user, repo_id, file_path)
+    except Exception as e:
+        debug_log(f'Exception in api_delete_file: {e}\n{traceback.format_exc()}')
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@api.route('/repos/<int:repo_id>/commits', methods=['POST'])
+@token_required
+def create_commit(current_user, repo_id):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+        
+    data = request.get_json()
+    git_repo = GitRepository(os.path.join('repos', str(repo_id)))
+    
+    commit_hash = git_repo.commit(data['message'], data['files'])
+    return jsonify({'commit_hash': commit_hash})
+
+@api.route('/repos/<int:repo_id>/commits', methods=['GET'])
+@token_required
+def get_commits(current_user, repo_id):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+    git_repo = GitRepository(os.path.join('repos', str(repo_id)))
+    commits = git_repo.list_commits()
+    return jsonify(commits)
+
+@api.route('/repos/<int:repo_id>/graph', methods=['GET'])
+@token_required
+def get_graph(current_user, repo_id):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+    git_repo = GitRepository(os.path.join('repos', str(repo_id)))
+    graph = git_repo.get_commit_graph() if hasattr(git_repo, 'get_commit_graph') else []
+    return jsonify(graph)
+
+@api.route('/repos/<int:repo_id>/branches', methods=['GET'])
+@token_required
+def list_branches(current_user, repo_id):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+        
+    branches_dir = os.path.join('repos', str(repo_id), 'refs', 'heads')
+    branches = []
+    for branch in os.listdir(branches_dir):
+        branches.append({'name': branch})
+    return jsonify(branches)
+
+@api.route('/repos/<int:repo_id>/branches', methods=['POST'])
+@token_required
+def create_branch(current_user, repo_id):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+        
+    data = request.get_json()
+    git_repo = GitRepository(os.path.join('repos', str(repo_id)))
+    git_repo.create_branch(data['name'], data.get('start_point', 'HEAD'))
+    
+    return jsonify({'message': 'Branch created'})
+
+@api.route('/repos/<int:repo_id>/checkout', methods=['POST'])
+@token_required
+def checkout_branch(current_user, repo_id):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+        
+    data = request.get_json()
+    git_repo = GitRepository(os.path.join('repos', str(repo_id)))
+    git_repo.checkout(data['branch'])
+    
+    return jsonify({'message': 'Checked out branch'})
+
+@api.route('/repos/<int:repo_id>/revert', methods=['POST'])
+@token_required
+def revert_commit(current_user, repo_id):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+    data = request.get_json()
+    commit_hash = data.get('commit_hash')
+    if not commit_hash:
+        return jsonify({'message': 'Missing commit_hash'}), 400
+    git_repo = GitRepository(os.path.join('repos', str(repo_id)))
+    try:
+        git_repo.revert_to_commit(commit_hash)
+        return jsonify({'message': f'Reverted to commit {commit_hash}'})
+    except Exception as e:
+        return jsonify({'message': str(e)}), 400
+
+@api.route('/repos/<int:repo_id>/sync', methods=['POST'])
+@token_required
+def sync_repo(current_user, repo_id):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+    git_repo = GitRepository(os.path.join('repos', str(repo_id)))
+    try:
+        git_repo.sync()
+        return jsonify({'success': True, 'message': 'Repository synced'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 @api.route('/repos/<int:repo_id>/download', methods=['GET'])
-@error_handler
-def download_repository(repo_id):
-    repository = Repository.query.get_or_404(repo_id)
-    
-    try:
-        zip_path = repo_manager.create_archive(repository.id)
-        return send_file(
-            zip_path,
-            as_attachment=True,
-            download_name=f"{repository.name}.zip"
-        )
-    except Exception as e:
-        logger.error(f"Failed to download repository: {e}")
-        raise APIError("Failed to download repository", 500)
-    finally:
-        # Clean up temporary zip file
-        if 'zip_path' in locals() and os.path.exists(zip_path):
-            try:
-                os.remove(zip_path)
-            except Exception as e:
-                logger.warning(f"Failed to remove temporary zip file: {e}")
+@token_required
+def download_repo(current_user, repo_id):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+    repo_path = os.path.join('repos', str(repo_id))
+    zip_buffer = io.BytesIO()
+    with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for root, dirs, files in os.walk(repo_path):
+            for file in files:
+                file_path = os.path.join(root, file)
+                arcname = os.path.relpath(file_path, repo_path)
+                zipf.write(file_path, arcname)
+    zip_buffer.seek(0)
+    return send_file(zip_buffer, mimetype='application/zip', as_attachment=True, download_name=f'repo_{repo_id}.zip')
 
-@api.errorhandler(404)
-def not_found_error(error):
-    return jsonify({'message': 'Resource not found', 'status': 'error'}), 404
+@api.route('/repos/<int:repo_id>/working-tree', methods=['GET'])
+@token_required
+def get_working_tree(current_user, repo_id):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+    from .models import WorkingTree, File as DBFile
+    entries = WorkingTree.query.filter_by(repository_id=repo_id).all()
+    files = []
+    for entry in entries:
+        db_file = DBFile.query.get(entry.file_id)
+        if db_file:
+            files.append({
+                'id': db_file.id,
+                'name': db_file.filename,
+                'status': entry.status
+            })
+    return jsonify(files)
 
-@api.errorhandler(500)
-def internal_error(error):
-    db.session.rollback()
-    return jsonify({'message': 'Internal server error', 'status': 'error'}), 500
+@api.route('/repos/<int:repo_id>/stage', methods=['POST'])
+@token_required
+def stage_files(current_user, repo_id):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+    from .models import WorkingTree, StagingArea, File as DBFile
+    data = request.get_json()
+    file_ids = data.get('file_ids', [])
+    staged = []
+    for file_id in file_ids:
+        wt = WorkingTree.query.filter_by(repository_id=repo_id, file_id=file_id).first()
+        if wt:
+            # Move to staging area
+            sa = StagingArea.query.filter_by(repository_id=repo_id, file_id=file_id).first()
+            if not sa:
+                sa = StagingArea(repository_id=repo_id, file_id=file_id)
+                db.session.add(sa)
+            sa.status = wt.status
+            staged.append(file_id)
+            db.session.delete(wt)
+    db.session.commit()
+    return jsonify({'staged': staged})
+
+@api.route('/repos/<int:repo_id>/staging-area', methods=['GET'])
+@token_required
+def get_staging_area(current_user, repo_id):
+    repo = Repository.query.get_or_404(repo_id)
+    if repo.user_id != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+    from .models import StagingArea, File as DBFile
+    entries = StagingArea.query.filter_by(repository_id=repo_id).all()
+    files = []
+    for entry in entries:
+        db_file = DBFile.query.get(entry.file_id)
+        if db_file:
+            files.append({
+                'id': db_file.id,
+                'name': db_file.filename,
+                'status': entry.status
+            })
+    return jsonify(files)
 
 

@@ -1,0 +1,207 @@
+2025-05-09 22:54:04,402 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-09 22:54:04,403 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-09 22:54:04,409 - werkzeug - INFO -  * Restarting with stat
+2025-05-09 22:54:05,568 - werkzeug - WARNING -  * Debugger is active!
+2025-05-09 22:54:05,575 - werkzeug - INFO -  * Debugger PIN: 161-153-568
+2025-05-09 22:54:09,407 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-09 22:54:10,606 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:05:52,476 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-10 09:05:52,478 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-10 09:05:52,482 - werkzeug - INFO -  * Restarting with stat
+2025-05-10 09:05:53,819 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 09:05:53,824 - werkzeug - INFO -  * Debugger PIN: 161-153-568
+2025-05-10 09:05:57,394 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:05:58,796 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:07:02,499 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:07:03,917 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:08:07,571 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:08:09,005 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:08:57,750 - werkzeug - INFO -  * Detected change in 'C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\server\\routes.py', reloading
+2025-05-10 09:08:57,941 - werkzeug - INFO -  * Restarting with stat
+2025-05-10 09:08:59,517 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 09:08:59,523 - werkzeug - INFO -  * Debugger PIN: 161-153-568
+2025-05-10 09:09:04,486 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:09:12,643 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:09:31,465 - werkzeug - INFO -  * Detected change in 'C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\server\\routes.py', reloading
+2025-05-10 09:09:31,736 - werkzeug - INFO -  * Restarting with stat
+2025-05-10 09:09:33,153 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 09:09:33,158 - werkzeug - INFO -  * Debugger PIN: 161-153-568
+2025-05-10 09:09:38,089 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:10:17,736 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:10:43,170 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:11:22,843 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:11:48,274 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:12:27,941 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:12:50,914 - werkzeug - INFO -  * Detected change in 'C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\server\\routes.py', reloading
+2025-05-10 09:12:51,114 - werkzeug - INFO -  * Restarting with stat
+2025-05-10 09:12:52,509 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 09:12:52,514 - werkzeug - INFO -  * Debugger PIN: 161-153-568
+2025-05-10 09:12:57,486 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:13:33,055 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:13:35,839 - werkzeug - INFO -  * Detected change in 'C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\server\\routes.py', reloading
+2025-05-10 09:13:36,057 - werkzeug - INFO -  * Restarting with stat
+2025-05-10 09:13:37,406 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 09:13:37,409 - werkzeug - INFO -  * Debugger PIN: 161-153-568
+2025-05-10 09:13:42,381 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:14:38,135 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:14:47,454 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:15:43,243 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:15:52,577 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:16:12,459 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-10 09:16:12,460 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-10 09:16:12,464 - werkzeug - INFO -  * Restarting with stat
+2025-05-10 09:16:13,755 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 09:16:13,760 - werkzeug - INFO -  * Debugger PIN: 161-153-568
+2025-05-10 09:16:17,439 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:16:18,713 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:17:22,532 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:17:23,825 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:17:31,594 - werkzeug - INFO -  * Detected change in 'C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\server\\routes.py', reloading
+2025-05-10 09:17:31,764 - werkzeug - INFO -  * Restarting with stat
+2025-05-10 09:17:33,137 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 09:17:33,141 - werkzeug - INFO -  * Debugger PIN: 161-153-568
+2025-05-10 09:17:38,096 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:18:27,606 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:18:27,798 - werkzeug - INFO -  * Detected change in 'C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\server\\routes.py', reloading
+2025-05-10 09:18:28,016 - werkzeug - INFO -  * Restarting with stat
+2025-05-10 09:18:29,540 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 09:18:29,545 - werkzeug - INFO -  * Debugger PIN: 161-153-568
+2025-05-10 09:18:34,512 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:19:32,692 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:19:39,638 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:20:37,809 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:20:44,735 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:21:42,918 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:21:49,829 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:22:48,012 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:22:54,912 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:22:59,400 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-10 09:22:59,401 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-10 09:22:59,405 - werkzeug - INFO -  * Restarting with stat
+2025-05-10 09:23:00,929 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 09:23:00,934 - werkzeug - INFO -  * Debugger PIN: 161-153-568
+2025-05-10 09:23:04,369 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:23:05,904 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:24:09,447 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:24:10,991 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:25:03,731 - werkzeug - INFO -  * Detected change in 'C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\server\\routes.py', reloading
+2025-05-10 09:25:03,927 - werkzeug - INFO -  * Restarting with stat
+2025-05-10 09:25:05,446 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 09:25:05,451 - werkzeug - INFO -  * Debugger PIN: 161-153-568
+2025-05-10 09:25:10,435 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:25:14,539 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:25:29,606 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-10 09:25:29,607 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-10 09:25:34,601 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:26:15,520 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:26:19,625 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:26:39,684 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:27:06,120 - werkzeug - INFO -  * Detected change in 'C:\\Users\\priya\\OneDrive\\Documents\\Visual Studio 2022\\Projects\\Web Based Version Control System\\server\\routes.py', reloading
+2025-05-10 09:27:06,388 - werkzeug - INFO -  * Restarting with stat
+2025-05-10 09:27:07,820 - werkzeug - WARNING -  * Debugger is active!
+2025-05-10 09:27:07,826 - werkzeug - INFO -  * Debugger PIN: 161-153-568
+2025-05-10 09:27:12,788 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:27:24,746 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:27:45,976 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-10 09:27:45,976 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-10 09:27:49,127 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:49] "[36mGET / HTTP/1.1[0m" 304 -
+2025-05-10 09:27:49,205 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:49] "[36mGET /js/dashboard.js HTTP/1.1[0m" 304 -
+2025-05-10 09:27:49,206 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:49] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:27:49,217 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:49] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2025-05-10 09:27:49,285 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:49] "[36mGET /repos.html HTTP/1.1[0m" 304 -
+2025-05-10 09:27:49,323 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:49] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:27:49,326 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:49] "[36mGET /js/repos.js HTTP/1.1[0m" 304 -
+2025-05-10 09:27:49,363 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:49] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2025-05-10 09:27:49,446 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-10 09:27:49,486 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:49] "GET /api/repos?user_id=1&page=1&per_page=10 HTTP/1.1" 200 -
+2025-05-10 09:27:50,885 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:50] "[36mGET /repo.html?id=4 HTTP/1.1[0m" 304 -
+2025-05-10 09:27:50,911 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:50] "[36mGET /js/repo.js HTTP/1.1[0m" 304 -
+2025-05-10 09:27:50,912 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:50] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:27:50,933 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:50] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2025-05-10 09:27:50,941 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:50] "[33mGET /api/repos/4 HTTP/1.1[0m" 404 -
+2025-05-10 09:27:50,945 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:27:54,933 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:54] "[31m[1mPOST /api/repos/4/sync HTTP/1.1[0m" 405 -
+2025-05-10 09:27:56,362 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:56] "[31m[1mGET /api/repos/4/files HTTP/1.1[0m" 401 -
+2025-05-10 09:27:57,736 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:57] "[31m[1mGET /api/repos/4/files HTTP/1.1[0m" 401 -
+2025-05-10 09:27:58,215 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:58] "[31m[1mGET /api/repos/4/files HTTP/1.1[0m" 401 -
+2025-05-10 09:27:58,830 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:58] "[31m[1mGET /api/repos/4/files HTTP/1.1[0m" 401 -
+2025-05-10 09:27:59,394 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:27:59] "[31m[1mGET /api/repos/4/files HTTP/1.1[0m" 401 -
+2025-05-10 09:28:00,013 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:28:00] "[33mGET /api/repos/4/working-tree HTTP/1.1[0m" 404 -
+2025-05-10 09:28:00,597 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:28:00] "[33mGET /api/repos/4/staging-area HTTP/1.1[0m" 404 -
+2025-05-10 09:28:01,139 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:28:01] "[33mGET /api/repos/4/commits HTTP/1.1[0m" 404 -
+2025-05-10 09:28:01,741 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:28:01] "[31m[1mGET /api/repos/4/files HTTP/1.1[0m" 401 -
+2025-05-10 09:28:03,328 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:28:03] "[36mGET /repos.html HTTP/1.1[0m" 304 -
+2025-05-10 09:28:03,352 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:28:03] "[36mGET /js/repos.js HTTP/1.1[0m" 304 -
+2025-05-10 09:28:03,353 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:28:03] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:28:03,365 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:28:03] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2025-05-10 09:28:03,380 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:28:03] "GET /api/repos?user_id=1&page=1&per_page=10 HTTP/1.1" 200 -
+2025-05-10 09:28:56,046 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:32:00,542 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-10 09:32:00,544 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-10 09:32:02,756 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:02] "[36mGET / HTTP/1.1[0m" 304 -
+2025-05-10 09:32:02,884 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:02] "[36mGET /js/dashboard.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:02,884 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:02] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:32:02,938 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:02] "GET /js/api.js HTTP/1.1" 200 -
+2025-05-10 09:32:02,962 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:02] "[36mGET /repos.html HTTP/1.1[0m" 304 -
+2025-05-10 09:32:03,011 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:03] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:32:03,012 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:03] "[36mGET /js/repos.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:03,060 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:03] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:03,119 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:03] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-10 09:32:03,121 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:03] "GET /api/repos?user_id=1&page=1&per_page=10 HTTP/1.1" 200 -
+2025-05-10 09:32:04,533 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:04] "[36mGET /repo.html?id=4 HTTP/1.1[0m" 304 -
+2025-05-10 09:32:04,551 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:04] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:32:04,552 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:04] "[36mGET /js/repo.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:04,559 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:04] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:04,566 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:04] "[33mGET /api/repos/4 HTTP/1.1[0m" 404 -
+2025-05-10 09:32:05,552 - server.monitoring - ERROR - Error updating system metrics: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-05-10 09:32:06,000 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:06] "[31m[1mGET /api/repos/4/files HTTP/1.1[0m" 401 -
+2025-05-10 09:32:07,560 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:07] "[36mGET /repos.html HTTP/1.1[0m" 304 -
+2025-05-10 09:32:07,580 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:07] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:32:07,584 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:07] "[36mGET /js/repos.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:07,597 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:07] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:07,615 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:07] "GET /api/repos?user_id=1&page=1&per_page=10 HTTP/1.1" 200 -
+2025-05-10 09:32:08,871 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:08] "[36mGET /dashboard.html HTTP/1.1[0m" 304 -
+2025-05-10 09:32:08,893 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:08] "[36mGET /js/dashboard.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:08,895 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:08] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:32:08,909 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:08] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:10,201 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:10] "POST /api/login HTTP/1.1" 200 -
+2025-05-10 09:32:10,248 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:10] "[36mGET /repos.html HTTP/1.1[0m" 304 -
+2025-05-10 09:32:10,268 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:10] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:32:10,270 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:10] "[36mGET /js/repos.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:10,282 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:10] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:10,299 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:10] "GET /api/repos?user_id=1&page=1&per_page=10 HTTP/1.1" 200 -
+2025-05-10 09:32:11,475 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:11] "[36mGET /repo.html?id=4 HTTP/1.1[0m" 304 -
+2025-05-10 09:32:11,495 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:11] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:32:11,496 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:11] "[36mGET /js/repo.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:11,511 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:11] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:11,520 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:11] "[33mGET /api/repos/4 HTTP/1.1[0m" 404 -
+2025-05-10 09:32:12,511 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:12] "[31m[1mGET /api/repos/4/files HTTP/1.1[0m" 401 -
+2025-05-10 09:32:13,151 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:13] "[33mGET /api/repos/4/working-tree HTTP/1.1[0m" 404 -
+2025-05-10 09:32:13,630 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:13] "[33mGET /api/repos/4/staging-area HTTP/1.1[0m" 404 -
+2025-05-10 09:32:15,465 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:15] "[36mGET /repos.html HTTP/1.1[0m" 304 -
+2025-05-10 09:32:15,482 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:15] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:32:15,483 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:15] "[36mGET /js/repos.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:15,493 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:15] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:15,508 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:15] "GET /api/repos?user_id=1&page=1&per_page=10 HTTP/1.1" 200 -
+2025-05-10 09:32:28,743 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:28] "[36mGET / HTTP/1.1[0m" 304 -
+2025-05-10 09:32:28,946 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:28] "[36mGET /js/dashboard.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:28,947 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:28] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:32:28,956 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:28] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:29,002 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:29] "[36mGET /repos.html HTTP/1.1[0m" 304 -
+2025-05-10 09:32:29,040 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:29] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:32:29,049 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:29] "[36mGET /js/repos.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:29,067 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:29] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:29,085 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:29] "GET /api/repos?user_id=1&page=1&per_page=10 HTTP/1.1" 200 -
+2025-05-10 09:32:29,154 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-10 09:32:30,639 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:30] "[36mGET /repo.html?id=4 HTTP/1.1[0m" 304 -
+2025-05-10 09:32:30,659 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:30] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-05-10 09:32:30,660 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:30] "[36mGET /js/repo.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:30,677 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:30] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2025-05-10 09:32:30,685 - werkzeug - INFO - 127.0.0.1 - - [10/May/2025 09:32:30] "[33mGET /api/repos/4 HTTP/1.1[0m" 404 -

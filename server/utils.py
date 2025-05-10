@@ -1,7 +1,8 @@
 from flask import request, jsonify, current_app
 from functools import wraps
 import logging
-from logger import get_logger, metrics
+from .logger import get_logger, metrics
+from .models import db
 
 logger = logging.getLogger(__name__)
 
@@ -128,3 +129,20 @@ def validate_file_size(size):
     max_size = current_app.config.get('MAX_FILE_SIZE', 10 * 1024 * 1024)  # Default 10MB
     if size > max_size:
         raise APIError(f"File size exceeds maximum limit of {max_size} bytes")
+
+# --- Database Transaction Utility ---
+def run_atomic_transaction(operations_func, *args, **kwargs):
+    """
+    Run multiple DB operations atomically. If any operation fails, all changes are rolled back.
+    Usage:
+        def ops():
+            db.session.add(obj1)
+            db.session.add(obj2)
+        run_atomic_transaction(ops)
+    """
+    try:
+        with db.session.begin():
+            operations_func(*args, **kwargs)
+    except Exception as e:
+        db.session.rollback()
+        raise e
